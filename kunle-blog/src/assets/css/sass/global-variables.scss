@@ -2,6 +2,13 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:900');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Darker+Grotesque:400,600,700&display=swap');
+
+/*FONTS*/
+$quicksand: 'Quicksand', sans-serif;
+$lato: 'Lato', sans-serif;
+$open: 'Open Sans', sans-serif;
+$grate: 'Darker Grotesque', sans-serif;
 
 @mixin test-borders($color) {
     // border: 1px solid $color;
@@ -9,6 +16,11 @@
 
 /* COLOR PALLET */
 $nav_color: #222222;
+$body_color: #ffffff;
+$nav_lines: #8f8e8e;
+$nav_lines_shade1: #f5f2f2;
+$nav_lines_shade3: #cac9c9;
+$main_background_color: #23272e;
 
 /* MEDIA QUERY BREAK POINTS */
 $break-xsm: 700px;
@@ -16,6 +28,10 @@ $break-sm: 838px;
 $break-med: 1258px;
 $break-large: 1440px;
 $break-xlarge: 1680px;
+
+body {
+    background-color: $body_color;
+}
 
 @mixin screen-size($media) {
 
@@ -206,17 +222,16 @@ button {
 }
 
 /*Main Font-sizes*/
-$h1-font: 45px;
+$h1-font: 60px;
 $h2-font: 28px; 
 $h3-font: 30px;
 $h4-font: 15px;
 $p-font: 18px;
 
 
-/*FONTS*/
-$quicksand: 'Quicksand', sans-serif;
-$lato: 'Lato', sans-serif;
-$open: 'Open Sans', sans-serif;
+i {
+    height: initial !important;
+}
 
 label {
     font-family: 'Quicksand', sans-serif;
@@ -246,6 +261,7 @@ h1 {
     @include screen-size(medium) {
         font-size: $h1-font/1.5;
     }
+    color:#222;
 }
 
 h2 {
@@ -257,6 +273,7 @@ h2 {
         font-size: $h2-font - 4;
         line-height: ($h2-font/2)+5;
     }
+    color:#222;
 }
 
 h3 {
@@ -270,24 +287,28 @@ h3 {
     @include screen-size(medium) {
         font-size: $h3-font/1.5;
     }
+    color:#222;
 }
 
 h4 {
     font-size: $h4-font;
     line-height: $h4-font+5;
+    font-weight: 100;
     font-family: 'Quicksand', sans-serif;
-    color: $nav_color;
+    color: #efefef;
+    color: hsl(214, 7%, 47%);
 }
 
 p {
     font-size: $p-font;
     line-height: $p-font + 5;
     font-weight: 300;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $quicksand;
     color: #314455;
     @include screen-size(small) {
         font-size: $p-font - 4;
     }
+    color:#222;
 }
 
 .post {

@@ -4,7 +4,7 @@ import StorySummary from './StorySummary';
 const StoryList = ({stories}) => {
     return (
         <div className="main_body">
-            <div className="article_container">
+            <div className="my_post_container">
                 {stories && stories.map(story => {
                     return (
                         <StorySummary story={story} key={story.id} />

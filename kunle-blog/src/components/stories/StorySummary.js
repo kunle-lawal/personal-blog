@@ -1,10 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom' 
 import TimePosted from '../miniComponents/TimePosted'
-import Reactions from '../miniComponents/Reactions'
-import Bookmark from '../miniComponents/Bookmark'
+import StoryActions from '../miniComponents/StoryActions'
 import { scrollToTop } from '../miniComponents/scrollToTop'
-import FlaggedPost from '../miniComponents/FlagedPost'
 import { connect } from 'react-redux'
 
 const StorySummary = (props) => {
@@ -28,98 +26,39 @@ const StorySummary = (props) => {
     }    
 
     let banned = props.profile ? props.profile.banned : false;
-    if(banned) {
-        return (
-            <div className="article main_page_article">
-                <div className="article-info">
-                    <Link to={'/topics/' + story.topic} onClick={scrollToTop}>
-                        <div className="article-info-topic">
-                            <h3><span>{(story.topic) ? story.topic : 'TOPIC'}</span></h3>
-                        </div>
-                    </Link>
-                    <Link to={'/story/' + story.id} onClick={scrollToTop}>
-                        <div className="article-info-title">
-                            <h2 className="red-text">FLAGGED POST</h2>
-                            <FlaggedPost flagged={(props.profile ? (props.profile.flagged) : false) ? true : false} />
-                        </div>
-                    </Link>
-                    <Link to={'/story/' + story.id} onClick={scrollToTop}>
-                        <div className="article-info-description">
-                            <p className="red-text">THIS POST HAS BEEN FLAGGED BY YOU. TO VIEW IT'S CONTENT CLICK HERE</p>
-                        </div>
-                    </Link>
-                </div>
+    return (
+        <div className="my_post main_page_article">
+            <div className="image_container">
+                <img src="" alt=""/>
+            </div>
 
-                <div className="article-misc">
-                    <div className="article-misc-detail">
-                        <div className="totalComments icon_container">
-                            <i className="far fa-comment icon red-text"><span>{story.commentsTotal}</span></i>
+            <div className="post_info">
+                <div className="post_blurb">
+                    <div className="blurb">
+                        <div className="author meta">
+                            <h4>By: OlaKunle Lawal</h4>
                         </div>
-                        <div className="reaction icon_container noselect">
-                            <i id="thumb" className='red-text far fa-thumbs-up icon'> <span id="thumb">0</span></i>
-                        </div>
-                        <div className="views icon_container noselect">
-                            <i id="views" className="far fa-eye icon red-text"><span id="views">{story.views}</span></i>
+                        <h2>Recreational Powers</h2>
+                        {/* <h4>This might be the new age.</h4> */}
+                        <br/>
+                        <div className="post_meta">
+                            <TimePosted time={1562813777423}/>
+                            <div className="metas">
+                                <div className="actions meta">
+                                    <div className="totalComments icon_container action">
+                                        <i className="far fa-comment icon"><span>{story.commentsTotal}</span></i>
+                                    </div>
+                                    <div className="views icon_container noselect action">
+                                        <i id="views" className="far fa-eye icon"><span id="views">{story.views}</span></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div className="article-misc-date">
-                        <div className="date red-text">
-                            <TimePosted time={story.createdAt} />
-                        </div>
-                    </div>
-                </div>
-                <div className="drag">
-                    <div></div>
                 </div>
             </div>
-        )
-    } else {
-        return (
-            <div className="article main_page_article">
-                <div className="article-info">
-                    <div className="article-info-topic">
-                        <Link to={'/topics/' + story.topic} onClick={scrollToTop}>
-                            <h3><span>{(story.topic) ? story.topic : 'TOPIC'}</span></h3>
-                        </Link>
-                    </div>
-                    <Bookmark bookmark={bookmarkProps}/>
-                    <Link to={'/story/' + story.id} onClick={scrollToTop}>
-                        <div className="article-info-title">
-                            <h2>{story.title}</h2>
-                            <FlaggedPost flagged={(props.profile ? (props.profile.flagged) : false) ? true : false} />
-                        </div>
-                    </Link>
-                    <Link to={'/story/' + story.id} onClick={scrollToTop}>
-                        <div className="article-info-description">
-                            <p>{trunc_text(story.content)}...</p>
-                        </div>
-                    </Link>
-                </div>
-
-                <div className="article-misc">
-                    <div className="article-misc-detail">
-                        <div className="totalComments icon_container">
-                            <i className="far fa-comment icon"><span>{story.commentsTotal}</span></i>
-                        </div>
-                        <Reactions reactions={reactionProps} />
-                        <div className="views icon_container noselect">
-                            <i id="views" className="far fa-eye icon"><span id="views">{story.views}</span></i>
-                        </div>
-                    </div>
-
-                    <div className="article-misc-date">
-                        <div className="date">
-                            <TimePosted time={story.createdAt} />
-                        </div>
-                    </div>
-                </div>
-                <div className="drag">
-                    <div></div>
-                </div>
-            </div>
-        )
-    }
+        </div>
+    )
 }
 
 const mapStateToProps = (state, ownProps) => {

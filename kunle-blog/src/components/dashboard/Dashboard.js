@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import StoryList from '../stories/StoriesList'
 import Pagination from './Pagination'
 import DashboardTemplate from './DashboardTemplate'
+import HeroSpace from './HeroSpace'
 import { scrollToT } from '../miniComponents/scrollToTop'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
@@ -85,8 +86,9 @@ class Dashboard extends Component {
             if (filteredStories && filteredStories.length > 1 && this.state.firstLoad && !this.sameStoryIds) {
                 return (
                     <div id="main_body_container" className="main_body_container">
+                        <HeroSpace stories={filteredStories}/>
                         <StoryList stories={filteredStories} />
-                        {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null}
+                        {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
                     </div>
                 )
             } else {

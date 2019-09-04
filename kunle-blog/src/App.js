@@ -7,6 +7,7 @@ import StoryDetails from './components/stories/StoryDetails';
 import CreateStory from './components/stories/CreateStory';
 import AuthModule from './components/miniComponents/auth/AuthModule';
 import PageNotFound from './components/dashboard/PageNotFound';
+import Footer from './components/layout/Footer'
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
                   <Route path='/404' component={PageNotFound} />
                   <Route component={PageNotFound} />
                 </Switch>
+                <Footer />
               </div>
             </BrowserRouter>
         </div>
