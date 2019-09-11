@@ -311,25 +311,6 @@ p {
     color:#222;
 }
 
-.post {
-    animation-name: post;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes post {
-    from {
-        position: relative;
-        top:0;
-    }
-
-    to {
-        position: relative;
-        top:-200px;
-        opacity:0;
-    }
-}
-
 .tooltip {
     position: relative;
     display: inline-block;

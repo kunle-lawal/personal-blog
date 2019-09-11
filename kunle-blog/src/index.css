@@ -315,23 +315,6 @@ p {
   }
 }
 
-.post {
-  animation-name: post;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes post {
-  from {
-    position: relative;
-    top: 0;
-  }
-  to {
-    position: relative;
-    top: -200px;
-    opacity: 0;
-  }
-}
 .tooltip {
   position: relative;
   display: inline-block;
@@ -763,6 +746,64 @@ p {
   color: #222;
 }
 .main_container .main .main_body_container .main_body .my_post_container .my_post .post_meta .metas .actions .action span {
+  margin-left: 10px;
+  font-family: "Quicksand", sans-serif;
+}
+.main_container .main .main_body_container .post {
+  width: 100%;
+}
+.main_container .main .main_body_container .post .post_hero {
+  background-color: #23272e;
+  width: 100%;
+  height: 500px;
+  text-align: center;
+  display: flex;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline {
+  width: 40%;
+  margin: auto;
+  color: white;
+  padding: 30px;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_item {
+  margin: 15px 0;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_title h1 {
+  color: white;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas {
+  width: 100%;
+  display: inline-block;
+  margin: auto;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas h4 {
+  display: inline-block;
+  color: #dee2e8;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas .meta {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 2px solid white;
+  display: inline-block;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas .actions {
+  display: inline-block;
+  text-align: right;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas .actions .action {
+  width: auto;
+  display: inline-block;
+  margin: auto 10px;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas .actions .action i {
+  color: #dee2e8;
+}
+.main_container .main .main_body_container .post .post_hero .post_byline .post_meta .metas .actions .action span {
   margin-left: 10px;
   font-family: "Quicksand", sans-serif;
 }

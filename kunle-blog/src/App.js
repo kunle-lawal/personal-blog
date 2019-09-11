@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Navbar from './components/layout/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import Topic from './components/dashboard/Topic';
-import StoryDetails from './components/stories/StoryDetails';
+import Post from './components/stories/PostDetails/Post';
 import CreateStory from './components/stories/CreateStory';
 import AuthModule from './components/miniComponents/auth/AuthModule';
 import PageNotFound from './components/dashboard/PageNotFound';
@@ -21,7 +21,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path='/' component={Dashboard} />
                   <Route path='/topics/:id' component={Topic} />
-                  <Route path='/story/:id' component={StoryDetails} />
+                  <Route path='/post/:id' component={Post} />
                   <Route path='/create' component={CreateStory} />
                   <Route path='/page/:id' component={Dashboard} />
                   <Route path='/404' component={PageNotFound} />
