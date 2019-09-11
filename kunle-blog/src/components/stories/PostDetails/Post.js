@@ -4,10 +4,12 @@ import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
 import {increaseViews} from '../../../store/actions/storyStateAction'
 import Hero from './Hero'
+import PostContent from './PostContent'
 import Social from './Social'
 import Categories from './SideBar/Categories'
 import Newsletter from './SideBar/Newsletter'
 import RecentPosts from './SideBar/RecentPosts'
+import AuthorFeature from './SideBar/AuthorFeature'
 
 class Post extends Component {
     state = {
@@ -26,11 +28,14 @@ class Post extends Component {
             <div className="main_body_container">
                 <div className="main_body post">
                     <Hero/>
-                    <div className="post_content">
-                        
-                    </div>
-                    <div className="sideBar">
-                        
+                    <div className="main_post">
+                       <PostContent />
+                       <div className="side_bar">
+                           <AuthorFeature/>
+                           <RecentPosts />
+                           <Categories />
+                           <Newsletter />
+                       </div>
                     </div>
                 </div>
             </div>
