@@ -6,10 +6,8 @@ import {increaseViews} from '../../../store/actions/storyStateAction'
 import Hero from './Hero'
 import PostContent from './PostContent'
 import Social from './Social'
-import Categories from './SideBar/Categories'
-import Newsletter from './SideBar/Newsletter'
-import RecentPosts from './SideBar/RecentPosts'
-import AuthorFeature from './SideBar/AuthorFeature'
+import { Categories, Newsletter, RecentPost, AuthorFeature} from './Aside'
+import { RelatedTags, RelatedPosts, AboutAuthor } from './PostTail'
 
 class Post extends Component {
     state = {
@@ -29,13 +27,21 @@ class Post extends Component {
                 <div className="main_body post">
                     <Hero/>
                     <div className="main_post">
-                       <PostContent />
-                       <div className="side_bar">
-                           <AuthorFeature/>
-                           <RecentPosts />
-                           <Categories />
-                           <Newsletter />
-                       </div>
+                        <div className="">
+                            <Social />
+                            <PostContent />
+                            <RelatedTags />
+                        </div>
+                        <aside className="side_bar">
+                            <AuthorFeature/>
+                            <RecentPost />
+                            <Categories />
+                            <Newsletter />
+                        </aside>
+                    </div>  
+                    <div className="post_tail">
+                        <AboutAuthor/>
+                        <RelatedPosts/>
                     </div>
                 </div>
             </div>

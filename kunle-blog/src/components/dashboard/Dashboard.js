@@ -83,21 +83,13 @@ class Dashboard extends Component {
         if (isNaN(this.props.match.params.id) && (this.props.match.params.id !== undefined)) {
             return <Redirect to='/404' />
         } else if (!nav.mobileToggled) {
-            if (filteredStories && filteredStories.length > 1 && this.state.firstLoad && !this.sameStoryIds) {
-                return (
-                    <div id="main_body_container" className="main_body_container">
-                        <HeroSpace stories={filteredStories}/>
-                        <StoryList stories={filteredStories} />
-                        {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
-                    </div>
-                )
-            } else {
-                return (
-                    <div id="main_body_container" className="main_body_container">
-                        <DashboardTemplate/>
-                    </div>
-                )
-            }
+            return (
+                <div id="main_body_container" className="main_body_container">
+                    <HeroSpace stories={filteredStories}/>
+                    <StoryList stories={filteredStories} />
+                    {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
+                </div>
+            )
         } else {
             return (
                 null

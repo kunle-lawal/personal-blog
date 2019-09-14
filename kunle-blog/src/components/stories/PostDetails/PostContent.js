@@ -60,6 +60,16 @@ class PostContent extends Component {
                     perferendis laboriosam minus sunt voluptates amet, ullam at quo.
                 </p>
 
+                <div className="image_list">
+                    <h3>Gallary photos</h3>
+                    <ul class="four">
+                        <li><img src="" alt="" /></li>
+                        <li><img src="" alt="" /></li>
+                        <li><img src="" alt="" /></li>
+                        <li><img src="" alt="" /></li>
+                    </ul>
+                </div>
+
                 <p className="content">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Consectetur velit iure numquam exercitationem

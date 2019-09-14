@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react'
 import FeaturedPost from './FeaturedPost'
-import RecentPosts from './RecentPosts'
+import {ThreeUp} from './ThreeUp'
 
 
 class HeroSpace extends Component {
@@ -10,7 +10,9 @@ class HeroSpace extends Component {
         return (
             <div className="hero">
                 <FeaturedPost/>
-                <RecentPosts/>
+                <div className="recent_post">
+                    <ThreeUp />
+                </div>
             </div>
         )
     }

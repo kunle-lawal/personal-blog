@@ -26,6 +26,10 @@
             box-shadow: initial;
             background-color: $main_background_color;
 
+            @include screen-size(small) {
+                display: none;
+            }
+
             .top_section {
                 @include test-borders(red);
                 position: relative;
@@ -154,6 +158,132 @@
         .main_body_container {
             text-align: center;
 
+            .post_container {
+                .two_up {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-column-gap: 30px;
+                    grid-row-gap: 30px;
+                    margin-top: 70px;
+
+                    @include screen-size(small) {
+                        display: block;
+                    }
+                }
+
+                .three_up {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-column-gap: 30px;
+                    grid-row-gap: 30px;
+                    margin-top: 70px;
+
+                    @include screen-size(small) {
+                        display: block;
+                    }
+
+                    @include screen-size(kindasmall) {
+                        display: block;
+                    }
+
+                    @include screen-size(medium) {
+                        display: block;
+                        grid-template-columns: 1fr 1fr;
+                        grid-column-gap: 20px;
+                        grid-row-gap: 20px;
+                    }
+                }
+
+
+                .my_post {
+                    height: 500px;
+                    box-shadow: initial;
+                    display: grid;
+                    grid-template-rows: 2fr 0.8fr;
+                    margin-bottom: 50px;
+                    // border: 1px solid $nav_lines;
+
+                    @include screen-size(small) {
+                        height: 370px;
+                    }
+
+                    @include screen-size(medium) {
+                        height: 700px;
+                    }
+
+                    .image_container {
+                        // height: 70%;
+                        background-color: #84929e;
+                        cursor: pointer;
+                    }
+
+                    .post_info {
+                        // height: 30%;
+
+                        .post_blurb {
+                            // background-color: #222;
+                            // border-top: 1px solid $nav_lines_shade1;
+                            // border-bottom: 1px solid $nav_lines_shade1;
+                            padding: 20px 0;
+                            // height: 50%;
+                            text-align: center;
+                            cursor: pointer;
+
+                            .blurb {
+                                @include test-borders(red);
+                                width: 100%;
+                                text-align: justify;
+                                margin: auto;
+
+                                .post_meta {
+                                    display: flex;
+
+                                    @include screen-size(small) {
+                                        display: block;
+                                    }
+
+                                    .metas {
+                                        @include test-borders(blue);
+                                        display: inline-block;
+                                        width: auto;
+                                        text-align: left;
+                                        margin-left: 20px;
+
+                                        @include screen-size(small) {
+                                            margin-left: initial;
+                                        }
+
+                                        .actions {
+                                            display: inline-block;
+                                            text-align: left;
+
+                                            .action {
+                                                width: auto;
+                                                display: inline-block;
+                                                margin: auto 10px;
+
+                                                @include screen-size(small) {
+                                                    margin: initial;
+                                                    margin-top: 5px;
+
+                                                    &:nth-child(2) {
+                                                        margin-left: 20px;
+                                                    }
+                                                }
+
+                                                span {
+                                                    margin-left: 10px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             .hero {
                 min-height: 800px;
                 @include test-borders(blue);
@@ -172,9 +302,15 @@
                     padding: 35px 35px 35px;
 
                     @include screen-size(small) {
-                        width: 90%;
+                        height: auto;
+                        width: 100%;
                         display: block;
                         padding: 20px 20px 20px;
+                    }
+
+                    @include screen-size(medium) {
+                        width: 80%;
+                        padding: initial;
                     }
 
                     header {
@@ -198,16 +334,10 @@
                             text-align: left;
                         }
 
-                        @include screen-size(kindasmall) {
-                            position: relative;
-                            display: block;
-                            width: 80%;
-                        }
-
                         @include screen-size(medium) {
                             position: relative;
                             display: block;
-                            width: 80%;
+                            width: 90%;
                         }
 
                         &_title {
@@ -220,7 +350,7 @@
                             text-transform: none;
                             border:1px solid transparent;
                             margin-bottom:20px;
-                            color:white;
+                                color:white;
 
                             @include screen-size(small) {
                                 position: relative;
@@ -255,8 +385,12 @@
 
                             margin:auto;
                             width:100%;
-                            height: 400px;
+                            height: 300px;
                             margin-bottom:30px;
+                        }
+
+                        @include screen-size(medium) {
+                            height:80%;
                         }
                     }
 
@@ -298,101 +432,32 @@
                     width:65%;
                     margin:0 auto;
                     text-align: center;
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-                    grid-column-gap: 30px;
-                    grid-row-gap: 30px;
-                    margin-top:70px;
 
                     @include screen-size(small) {
                         display: block;
-                        width: 80%;
-                    }
-
-                    @include screen-size(kindasmall) {
-                        display: block;
+                        width: 90%;
                     }
 
                     @include screen-size(medium) {
-                        grid-template-columns: 1fr 1fr;
-                        grid-column-gap: 20px;
-                        grid-row-gap: 20px;
+                        width:75%;
                     }
-                    .my_post {
-                        height: 500px;
-                        box-shadow: initial;
-                        display: grid;
-                        grid-template-rows: 2fr 0.8fr;
-                        margin-bottom: 50px;
-                        // border: 1px solid $nav_lines;
-                        
-                        @include screen-size(small) {
-                            height: 600px;
+
+                    h2 {
+                        font-family: $grate;
+                        font-weight: 900;
+                        color: white;
+                    }
+
+                    .metas {
+                        i {
+                            color: white;
                         }
+                    }
 
-                        .image_container {
-                            // height: 70%;
-                            background-color: #84929e;
-                            cursor: pointer;
-                        }
-
-                        .post_info {
-                            // height: 30%;
-
-                            .post_blurb {
-                                // background-color: #222;
-                                // border-top: 1px solid $nav_lines_shade1;
-                                // border-bottom: 1px solid $nav_lines_shade1;
-                                padding:20px 0;
-                                // height: 50%;
-                                text-align: center;
-                                cursor: pointer;
-                                .blurb {
-                                    @include test-borders(red);
-                                    width:100%;
-                                    text-align: justify;
-                                    margin: auto;
-
-                                    h2 {
-                                        font-family: $grate;
-                                        font-weight: 900;
-                                        color:white;
-                                    }
-
-                                    .post_meta {
-                                        display: flex;
-                                        .metas {
-                                            @include test-borders(blue);
-                                            display: inline-block;
-                                            width: auto;
-                                            text-align: left;
-                                            margin-left:20px;
-
-                                            .actions {
-                                                display: inline-block;
-                                                text-align: left;
-
-                                                .action {
-                                                    width: auto;
-                                                    display: inline-block;
-                                                    margin: auto 10px;
-
-                                                    i {
-                                                        color: white;
-                                                    }
-
-                                                    span {
-                                                        margin-left: 10px;
-                                                        font-family: $quicksand;
-                                                        color:white;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    span {
+                        margin-left: 10px;
+                        font-family: $quicksand;
+                        color: white;
                     }
                 }
             }
@@ -443,7 +508,7 @@
                         // border: 1px solid $nav_lines;
                         
                         @include screen-size(small) {
-                            min-height: 600px;
+                            min-height: 400px;
                         }
 
                         .image_container {
@@ -516,6 +581,7 @@
 
             .post {
                 width: 100%;
+                position: relative;
 
                 .post_hero {
                     background-color: $main_background_color;
@@ -524,11 +590,20 @@
                     text-align: center;
                     display: flex;
 
+                    @include screen-size(small) {
+                        // height:auto;
+                    }
+
                     .post_byline {
                         width: 40%;
                         margin: auto;
                         color: white;
                         padding: 30px;
+
+                        @include screen-size(small) {
+                            width: auto;
+                            padding:20px;
+                        }
 
                         .post_item {
                             margin: 15px 0;
@@ -563,6 +638,12 @@
                                     padding-left: 10px;
                                     border-left: 2px solid white;
                                     display: inline-block;
+
+                                    @include screen-size(small) {
+                                        border-left: initial;
+                                        margin-left: initial;
+                                        padding:10px;
+                                    }
                                 }
 
                                 .actions {
@@ -598,31 +679,115 @@
                     background-color:white;
                     margin-top:-70px;
                     padding:50px;
+                    position: relative;
+
+                    @include screen-size(small) {
+                        display: block;
+                        width:90%;
+                        padding:initial;
+                        margin-top:initial;
+                    }
+
+                    @include screen-size(kindasmall) {
+                        display: block;
+                    }
+
+                    @include screen-size(medium) {
+                        display: block;
+                    }
+
+                    .social_container {
+                        position: absolute;
+                        // left:-1px;
+                        display: block;
+                        left: -80px;
+                        top:100px;
+                        height: 100%;
+
+                        .social {
+                            position: sticky;
+                            top:100px;
+                            width:60px;
+                            display: flex;
+                            flex-wrap: wrap;
+                            text-align: center;
+                            align-items: center;
+                            justify-content: center;
+                            
+                            ul {
+                                .twitter {
+                                    background-color: #00aced;
+                                }
+
+                                .linkedin {
+                                    background-color: #0077B5;
+                                }
+
+                                .facebook {
+                                    background-color: #3C5A99;
+                                }
+
+                                .envelope {
+                                    background-color: #84929e;
+                                }
+
+                                li {
+                                    // border: 1px solid #aeaeae;
+                                    padding: 12px;
+                                    margin: 10px 0;
+                                    // border-radius: 100px;
+
+                                    i {
+                                        font-size: 20px;
+                                        color: white;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     .post_content {
                         text-align: left;
                         margin-top:50px;
                         @include test-borders(red);
 
                         h3 {
-                            border-bottom:2px solid #efefef;
+                            text-decoration-color: $main_background_color;
+                            // text-decoration-line: underline;
                             margin:20px auto;
                             padding-bottom:10px;
+
+                            @include screen-size(small) {
+                                text-decoration-line: underline;
+                                font-weight: 900;
+                                margin: initial;
+                            }
                         }
 
                         .image_list {
                             margin:100px 0;
+                            width:100%;
+
+                            @include screen-size(small) {
+                                margin: 50px 0;
+                            }
 
                             .three {
                                 display: flex;
                                 flex-wrap: wrap;
+                                width:100%;
+
+                                @include screen-size(small) {
+                                    display: block;
+                                }
 
                                 li {
                                     margin: 0 16px 16px 0;
-                                    display: flex;
+                                    // display: flex;
                                     flex-grow: 1;
-                                    flex-direction: column;
-                                    justify-content: center;
-                                    position: relative;
+                                    // flex-direction: column;
+                                    // justify-content: center;
+                                    // position: relative;
                                 }
                             }
 
@@ -633,8 +798,13 @@
                             }
 
                             li {
-                                background-color: rgb(83, 83, 224);
+                                background-color: rgb(230, 119, 112);
                                 height: 300px;
+
+                                @include screen-size(small) {
+                                    height: 150px;
+                                    width: 100% !important;
+                                }
                             }
                         }
 
@@ -645,7 +815,32 @@
                             color:#2c2c2c;
                             font-family: $quicksand;
                             font-weight:500;
+                        }
+                    }
 
+                    .related_tags {
+                        width: 100%;
+                        @include test-borders(red);
+                        text-align: left;
+
+                        @include screen-size(small) {
+                            width: 100%;
+                        }
+
+                        a {
+                            background-color: #efefef;
+                            padding: 5px 15px;
+                            margin: 2px;
+                            cursor: pointer;
+                            text-transform: lowercase;
+                            font-family: $grate;
+                            font-weight: 600;
+                            display: inline-block;
+
+                            &:hover {
+                                background-color: $main_background_color;
+                                color: white;
+                            }
                         }
                     }
 
@@ -653,7 +848,18 @@
                         @include test-borders(black);
                         // border-left:1px solid #efefef;
                         margin-top:50px;
-                        padding:0 13px;
+                        padding-left:23px;
+                        border-left: 1px solid #efefef;
+
+                        @include screen-size(small) {
+                            border: initial;
+                            padding-left: initial;
+                        }
+
+                        @include screen-size(medium) {
+                            border: initial;
+                        }
+                        
                         .post_sidebar {
                             margin-bottom:50px;
 
@@ -707,6 +913,11 @@
                                             flex: 1;
                                             width: auto;
 
+                                            &:hover>h3 {
+                                                color: rgb(226, 94, 94) !important;
+                                                font-weight: 600;
+                                            }
+
                                             h3 {
                                                 line-height: 1.2;
                                                 font-weight: 600;
@@ -728,6 +939,10 @@
                                 padding: 35px 28px;
                                 border-width: 1px;
                                 border-style: solid;
+
+                                @include screen-size(small) {
+                                    // padding: initial
+                                }
                                 .img {
                                     background-color: rgb(236, 115, 115);
                                     width:150px;
@@ -744,6 +959,10 @@
                                     text-align: left;
                                     margin-bottom: 20px;
                                     font-weight: 400;
+
+                                    @include screen-size(medium) {
+                                        width:78%;
+                                    }
                                 }
                             }
                         }
@@ -751,10 +970,16 @@
                         .categories {
                             ul {
                                 li {
-                                    // margin-left:30px;
+                                    // margin-right:30px;
+
+                                    &:hover>a>h4 {
+                                        color: rgb(226, 94, 94) !important;
+                                        font-weight: 600;
+                                    }
+
                                     a {
                                         justify-content: flex-start;
-                                        padding:10px;
+                                        padding:10px 0;
                                         width: auto;
 
                                         h4 {
@@ -781,6 +1006,11 @@
                                         .input-field {
                                             text-align: left;
 
+                                            @include screen-size(medium) {
+                                                display: grid;
+                                                grid-template: 4fr 1.5fr;
+                                            }
+
                                             input {
                                                 border: 1px solid $nav_lines_shade3;
                                                 padding-left: 10px;
@@ -791,6 +1021,10 @@
 
                                                 &:focus {
                                                     border-bottom: initial;
+                                                }
+
+                                                @include screen-size(medium) {
+                                                    width:97%;
                                                 }
 
                                                 @include screen-size(small) {
@@ -825,12 +1059,130 @@
                         }
                     }
                 }
+
+                &_tail {
+                    width:67%;
+                    margin:auto;
+                    padding:50px;
+                    border-bottom:1px solid #dddddd;
+
+                    @include screen-size(small) {
+                        width: 85%;
+                        padding: initial;
+                    }
+
+                    .about_author {
+                        width:60%;
+                        padding: 35px 28px;
+                        border: 1px solid #efefef;
+                        margin-top:60px;
+
+                        @include screen-size(small) {
+                            width:100%;
+                            padding: initial;
+                        }
+
+                        @include screen-size(medium) {
+                            width: 100%;
+                        }
+                        .tab {
+                            text-align: left;
+                            display: inline-block;
+
+                            @include screen-size(small) {
+                                text-align: center;
+                            }
+    
+                            .img {
+                                display: inline-block;
+                                background-color: rgb(236, 115, 115);
+                                width: 150px;
+                                height: 150px;
+                                position: relative;
+                                top: 10px;
+                                border-radius: 100px;
+                                // margin-bottom: 30px;
+                            }
+    
+                            .author_info {
+                                display: inline-block;
+                                width: 70%;
+                                margin-left: 30px;
+                                // border:1px solid red;
+
+                                @include screen-size(small) {
+                                    margin-left: initial;
+                                    margin: 20px 0;
+                                }
+
+                                h3 {
+                                    text-transform: lowercase;
+                                }
+
+                                h4 {
+                                    text-transform: uppercase;
+                                }
+
+                                p {
+                                    font-size: 16px;
+                                    line-height: 1.55;
+                                    margin-bottom: 20px;
+
+                                    @include screen-size(small) {
+                                        text-align: left;
+                                        margin: 20px 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .related_posts {
+                        width:60%;
+                        margin-top:40px;
+
+                        @include screen-size(small) {
+                            width:100%;
+                        }
+
+                        @include screen-size(medium) {
+                            width: 100%;
+                        }
+
+                        h3 {
+                            text-align: left;
+                            font-family: $grate;
+                            font-weight: 600;
+                        }
+                        .two_up {
+                            margin-top:20px;
+                            .my_post {
+                                height: 100%;
+
+                                h2 {
+                                    font-family: $grate;
+                                    font-weight: 900;
+                                    color: white;
+                                }
+
+                                h2 {
+                                    color:#222;
+                                    font-weight: 600;
+                                }
+
+                                i {
+                                    color:#222;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         footer {
             margin-top:200px;
-            min-height: 100vh;
+            min-height: 1000px;
             display: grid;
             background-color: $main_background_color;
 

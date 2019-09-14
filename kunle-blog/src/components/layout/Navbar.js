@@ -17,7 +17,7 @@ const Navbar = (props) => {
                 <div className="top_section_items">
                     <div className="logo_container left">
                         <div className="logo">
-                            <h2>CHRONA</h2>
+                            <Link to='/'><h2>CHRONA</h2></Link>
                         </div>
                     </div>
                     <div className="top_section_item right connect">

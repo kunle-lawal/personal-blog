@@ -3,7 +3,7 @@ import TimePosted from '../miniComponents/TimePosted'
 
 const postList = () => {
     return (
-        <div className="my_post main_page_article">
+        <div className="my_post">
             <div className="image_container">
                 <img src="" alt="" />
             </div>
@@ -34,14 +34,25 @@ const postList = () => {
     )
 }
 
-const RecentPosts = (props) => {
+export const ThreeUp = (props) => {
     return (
-        <div className="recent_post">
-            {postList()}
-            {postList()}
-            {postList()}
+        <div className="post_container">
+            <div className="three_up">
+                {postList()}
+                {postList()}
+                {postList()}
+            </div>
         </div>
     )
 }
 
-export default RecentPosts
+export const TwoUp = (props) => {
+    return (
+        <div className="post_container">
+            <div className="two_up">
+                {postList()}
+                {postList()}
+            </div>
+        </div>
+    )
+}

@@ -23,6 +23,8 @@ $nav_lines_shade1: #f5f2f2;
 $nav_lines_shade3: #cac9c9;
 $main_background_color: #23272e;
 
+/* Social Colors */
+
 /* MEDIA QUERY BREAK POINTS */
 $break-xsm: 700px;
 $break-sm: 838px;
@@ -258,9 +260,11 @@ h1 {
     font-family: 'Lato', sans-serif;
     @include screen-size(small) {
         font-size: $h1-font/1.6;
+        line-height: ($h1-font+5)/1.6;
     }
     @include screen-size(medium) {
         font-size: $h1-font/1.5;
+        line-height: ($h1-font+5)/1.5;
     }
     color:#222;
 }
