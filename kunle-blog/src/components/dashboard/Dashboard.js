@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
-import StoryList from '../stories/StoriesList'
+import PostList from '../stories/PostList'
 import Pagination from './Pagination'
 import DashboardTemplate from './DashboardTemplate'
 import HeroSpace from './HeroSpace'
@@ -68,25 +68,21 @@ class Dashboard extends Component {
         }
     }
 
+    
     render() {
-        const { nav, stories, auth } = this.props;
+        const { nav, posts, auth } = this.props;
         // let filteredStories = (stories) ? (stories.filter((story) => {
         //     return !(this.props.banList.includes(story.userID))
         // })) : [];
-        let filteredStories = (stories) ? stories : [];
-        let paginationState = {
-            totalStories: this.props.totalStories,
-            currentPage: Number(this.props.currentPage) || 1,
-            limit: this.props.limit,
-            pageType: 'page'
-        }
+        let filteredPosts = (posts) ? posts : [];
+        console.log(filteredPosts);
         if (isNaN(this.props.match.params.id) && (this.props.match.params.id !== undefined)) {
             return <Redirect to='/404' />
         } else if (!nav.mobileToggled) {
             return (
                 <div id="main_body_container" className="main_body_container">
-                    <HeroSpace stories={filteredStories}/>
-                    <StoryList stories={filteredStories} />
+                    <HeroSpace posts={filteredPosts}/>
+                    <PostList posts={filteredPosts} />
                     {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
                 </div>
             )
@@ -106,22 +102,25 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        stories: state.firestore.ordered.stories,
-        totalStories: state.firestore.data.Ids ? state.firestore.data.Ids.postIds.totalIds : 0,
-        banList: state.firebase.profile.banList || [],
+        posts: state.firestore.ordered.posts,
         currentPage: ownProps.match.params.id,
         nav: state.nav,
-        auth: state.firebase.auth,
-        limit: 8
     }
 }
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props, dispatch) => [
-        (props.totalStories <= 0 && (props.match.url === '/' || props.match.params.id === '1')) ? { collection: 'stories', orderBy: ['postID', 'desc'], limit: props.limit } : { collection: 'stories', orderBy: ['postID', 'desc'], startAt: ((props.totalStories - (props.limit * (props.match.params.id - 1))) <= 0) ? -1 : (props.totalStories - (props.limit * (props.match.params.id - 1))) - 1, limit: props.limit}
+        ({ collection: 'posts', orderBy: ['time', 'desc'], limit: 10})
     ])
 )(Dashboard)
+
+// export default compose(
+//     connect(mapStateToProps, mapDispatchToProps),
+//     firestoreConnect((props, dispatch) => [
+//         (props.totalStories <= 0 && (props.match.url === '/' || props.match.params.id === '1')) ? { collection: 'stories', orderBy: ['postID', 'desc'], limit: props.limit } : { collection: 'stories', orderBy: ['postID', 'desc'], startAt: ((props.totalStories - (props.limit * (props.match.params.id - 1))) <= 0) ? -1 : (props.totalStories - (props.limit * (props.match.params.id - 1))) - 1, limit: props.limit }
+//     ])
+// )(Dashboard)
 
 // endAt: ((props.totalStories - (props.limit * (props.match.params.id))) <= 0) ? 0 : (props.totalStories - (props.limit * (props.match.params.id))) - 1
     // (true) ? { collection: 'stories', orderBy: ['postID', 'desc'], limit: 10 } : { collection: 'stories', orderBy: ['postID', 'desc'], startAt: ((props.totalStories - (10 * (props.match.params.id - 1))), endAt: ((props.totalStories - (10 * (props.match.params.id - 1))) > 10) ? (props.totalStories - (10 * props.match.params.id)) : 0 }

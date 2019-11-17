@@ -3,12 +3,12 @@
 import React, { Component } from 'react'
 import TimePosted from '../../miniComponents/TimePosted'
 
-const HeroSpace = () => {
+const HeroSpace = ({post}) => {
     return (
         <div className="post_hero">
             <div className="post_byline">
                 <div className="post_title post_item">
-                    <h1>There are places we need to go</h1>
+                    <h1 dangerouslySetInnerHTML={{ __html: post ? post.title : ''}} />
                 </div>
 
                 <div className="post_meta post_item">

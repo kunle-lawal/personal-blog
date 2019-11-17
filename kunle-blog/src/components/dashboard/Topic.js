@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import StoryList from '../stories/StoriesList'
+import StoryList from '../stories/PostList'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';

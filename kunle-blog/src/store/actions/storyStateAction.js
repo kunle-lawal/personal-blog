@@ -8,46 +8,23 @@ export const createStory = (story, ids) => {
         const user = firebase.auth().currentUser;
         const userCollection = firestore.collection('users');
 
-        const collection = story.underReview ? 'reviews' : 'stories';
-        const userID = story.underReview ? user.uid : story.userID
+        // const collection = story.underReview ? 'reviews' : 'stories';
+        // const userID = story.underReview ? user.uid : story.userID
         // if(!story.passedReview && !story.underReview) {
         //     firestore.collection('reviews').doc(story.docID).delete().then(() => {
         //         dispatch({ type: 'DOCUMENT_DELETED', story: story });
         //     })
         //     return 0;
         // }
-        firestore.collection('stories').add({
+        // firestore.collection('posts').doc('post-1').set()
+        firestore.collection('posts').add({
             title: story.title,
             content: story.content,
-            postID: ids.postId,
-            commentsTotal: 0,
             time: new Date(),
-            topic: (story.topic).toUpperCase(),
             createdAt: new Date().getTime(),
-            userID: user.uid,
-            safe: null,
-            flags: 0,
-            underReview: story.underReview,
-            views: 0,
-            reactions: {
-                laugh: {
-                    type: 'laugh',
-                    total: 0,
-                    active: false
-                },
-                shook: {
-                    type: 'shook',
-                    total: 0,
-                    active: false
-                },
-                thumb: {
-                    type: 'thumb',
-                    total: 0,
-                    active: false
-                }
-            }
         }).then((docRef) => {
             // if(!story.underReview) {
+            console.log('this was posted');
             userCollection.doc(user.uid).collection('posts').add({
                 "posts": {
                     title: story.title,

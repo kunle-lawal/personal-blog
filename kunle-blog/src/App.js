@@ -8,6 +8,7 @@ import CreateStory from './components/stories/CreateStory';
 import AuthModule from './components/miniComponents/auth/AuthModule';
 import PageNotFound from './components/dashboard/PageNotFound';
 import Footer from './components/layout/Footer'
+import Admin from './components/dashboard/Admin/Admin'
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
                 <AuthModule/>
                 <Switch>
                   <Route exact path='/' component={Dashboard} />
+                  <Route exact path='/admin' component={Admin} />
                   <Route path='/topics/:id' component={Topic} />
                   <Route path='/post/:id' component={Post} />
                   <Route path='/create' component={CreateStory} />

@@ -65,12 +65,12 @@ class CreateStory extends Component {
         e.preventDefault();
         
         const { storyError, Ids } = this.props;
-        if (this.checkAuth() === false) { return 0 }
-        if (this.isEmpty() === true) { return 0 }
-        if (this.state.adding || this.state.title === '' || this.state.content === '') { this.setState({ storyError: 'Make sure you have a Title and a Story'}); return 0}
+        // if (this.checkAuth() === false) { return 0 }
+        // if (this.isEmpty() === true) { return 0 }
+        // if (this.state.adding || this.state.title === '' || this.state.content === '') { this.setState({ storyError: 'Make sure you have a Title and a Story'}); return 0}
         this.setState({intervalId: setInterval(this.getTimerVal.bind(this), 1000) })
         // deleteData('story');
-        this.props.createStory(this.state, { postId: Ids.postIds.totalIds, userId: Ids.postIds.totalIds});
+        this.props.createStory(this.state);
         this.setState({
             adding: (storyError) ? false : true
         })
@@ -111,7 +111,7 @@ class CreateStory extends Component {
         const { errors } = this.state;
         const {auth } = this.props;
         const topics = ['Science', 'Technology', 'Engineering', 'Art', 'Math', 'Misc', 'Tech News', 'Money', 'Education', 'Science', 'Steam', 'Stem', 'Jobs', 'react'];
-        if (!auth.uid) return <Redirect to='/welcome' />
+        // if (!auth.uid) return <Redirect to='/welcome' />
         return (
             <div className="write_container container">
                 <form className="write" onSubmit={this.handleSubmit}>
@@ -147,17 +147,7 @@ class CreateStory extends Component {
                             </div>
                         </div>
                         <div className="button-input">
-                            {
-                                (this.state.timerVal <= (2) || this.state.timerVal == null) ? (
-                                    (this.state.timerVal > 0) ? (
-                                        <p className="red-text error-message center">Wait {((2) - Math.floor(this.state.timerVal))} Minutes </p>
-                                    ) : (
-                                            null
-                                        )
-                                ) : (
-                                        <button className="btn-flat white-text waves-effect waves-light">POST</button>
-                                    )
-                            }
+                            <button className="btn-flat white-text waves-effect waves-light">POST</button>
                         </div>
                     </div>
                 </form>

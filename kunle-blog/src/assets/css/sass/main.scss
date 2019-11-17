@@ -1,5 +1,6 @@
 @import "reset.scss";
 @import "global-variables.scss";
+@import "admin.scss";
 
 .openArticle {
     min-height: 100vh !important;
@@ -968,25 +969,23 @@
                         }
 
                         .categories {
-                            ul {
-                                li {
-                                    // margin-right:30px;
+                            .post_list {
+                                margin-top:20px;
+                                text-align: left;
 
-                                    &:hover>a>h4 {
-                                        color: rgb(226, 94, 94) !important;
-                                        font-weight: 600;
-                                    }
+                                a {
+                                    background-color: #efefef;
+                                    padding: 5px 15px;
+                                    margin: 2px;
+                                    cursor: pointer;
+                                    text-transform: lowercase;
+                                    font-family: "Darker Grotesque", sans-serif;
+                                    font-weight: 600;
+                                    display: inline-block;
 
-                                    a {
-                                        justify-content: flex-start;
-                                        padding:10px 0;
-                                        width: auto;
-
-                                        h4 {
-                                            &:hover {
-                                                color: $main_background_color;
-                                            }
-                                        }
+                                    &:hover {
+                                        background-color: rgb(226, 94, 94) ;
+                                        color:white;
                                     }
                                 }
                             }
@@ -1115,12 +1114,16 @@
                                     margin: 20px 0;
                                 }
 
+                                //Author Type
                                 h3 {
                                     text-transform: lowercase;
+                                    margin-bottom:10px;
                                 }
 
+                                //Name
                                 h4 {
                                     text-transform: uppercase;
+                                    margin-bottom:10px;
                                 }
 
                                 p {

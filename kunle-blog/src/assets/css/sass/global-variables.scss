@@ -32,6 +32,13 @@ $break-med: 1258px;
 $break-large: 1440px;
 $break-xlarge: 1680px;
 
+/*Main Font-sizes*/
+$h1-font: 60px;
+$h2-font: 30px;
+$h3-font: 25px;
+$h4-font: 15px;
+$p-font: 18px;
+
 body {
     background-color: $body_color;
 }
@@ -224,13 +231,6 @@ button {
     user-select: none;
 }
 
-/*Main Font-sizes*/
-$h1-font: 60px;
-$h2-font: 28px; 
-$h3-font: 30px;
-$h4-font: 15px;
-$p-font: 18px;
-
 
 i {
     height: initial !important;
@@ -366,4 +366,10 @@ p {
 
 .display_none {
     display: none !important;
+}
+
+// materialize UI overrides
+
+strong {
+    font-weight: bold;
 }

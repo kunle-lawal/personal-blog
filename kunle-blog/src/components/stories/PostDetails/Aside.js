@@ -20,43 +20,21 @@ export const Categories = () => {
     return (
         <div className="post_sidebar categories">
             <h2>Categories </h2>
-            <ul className="post_list">
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+            <div className="post_list">
+                <Link to="/">Measure</Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link to="/">Cultivate</Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link to="/">Coding Camps</Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link to="/">Work</Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link to="/">Places to go</Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
-            </ul>
+                <Link to="/">Culture</Link>
+
+                <Link to="/">Tech Leads</Link>
+            </div>
         </div>
     )
 }
@@ -69,7 +47,7 @@ export const Newsletter = () => {
                 <div className="item">
                     <form action="" className="contact">
                         <div className="input-field">
-                            <input id="email" type="email" className="validate email" onChange={"fsfs"} value={"Hello@yahoo.com"} placeholder="Email" />
+                            <input id="email" type="email" className="validate email" onChange={() => {return}} value={"Hello@yahoo.com"} placeholder="Email" />
                             <button className="btn-flat">Subscribe</button>
                         </div>
                     </form>
@@ -85,7 +63,7 @@ export const RecentPost = () => {
             <h2>Recent Posts</h2>
             <ul className="post_list">
                 <li>
-                    <Link>
+                    <Link to="/">
                         {/* This should be an image in the future. */}
                         <div className="img red"></div>
                         <div className="post_info">
@@ -96,7 +74,7 @@ export const RecentPost = () => {
                 </li>
 
                 <li>
-                    <Link>
+                    <Link to="/">
                         {/* This should be an image in the future. */}
                         <div className="img blue"></div>
                         <div className="post_info">
@@ -107,7 +85,7 @@ export const RecentPost = () => {
                 </li>
 
                 <li>
-                    <Link>
+                    <Link to="/">
                         {/* This should be an image in the future. */}
                         <div className="img green"></div>
                         <div className="post_info">

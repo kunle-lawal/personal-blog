@@ -22,8 +22,8 @@ const FeaturedPost = (props) => {
             </div>
 
             <div className="featured_post_arrow">
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-right"></i>
+                <i className="fas fa-arrow-left"></i>
+                <i className="fas fa-arrow-right"></i>
             </div>
         </>
     )

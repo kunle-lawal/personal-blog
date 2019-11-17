@@ -3,6 +3,7 @@
 import React, {Component} from 'react'
 import FeaturedPost from './FeaturedPost'
 import {ThreeUp} from './ThreeUp'
+import { Link } from 'react-router-dom'
 
 
 class HeroSpace extends Component {
@@ -11,7 +12,7 @@ class HeroSpace extends Component {
             <div className="hero">
                 <FeaturedPost/>
                 <div className="recent_post">
-                    <ThreeUp />
+                    <Link to="/post/NpcRaVOb0zzpJotChOp0"><ThreeUp /></Link>
                 </div>
             </div>
         )

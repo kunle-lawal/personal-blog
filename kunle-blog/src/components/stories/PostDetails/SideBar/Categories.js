@@ -5,43 +5,31 @@ const Categories = () => {
     return (
         <div className="post_sidebar categories">
             <h2>Categories </h2>
-            <ul className="post_list">
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+            <div className="post_list">
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
 
-                <li>
-                    <Link>
-                        <h4>Culture</h4>
-                    </Link>
-                </li>
-            </ul>
+                <Link>
+                    <h4>Culture</h4>
+                </Link>
+            </div>
         </div>
     )
 }

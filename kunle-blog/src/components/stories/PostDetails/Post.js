@@ -25,11 +25,14 @@ class Post extends Component {
        return (
             <div className="main_body_container">
                 <div className="main_body post">
-                    <Hero/>
+                    <Hero post={this.props.post}/>
                     <div className="main_post">
                         <div className="">
                             <Social />
-                            <PostContent />
+                            <PostContent 
+                                ownProps={this.props} 
+                                post={this.props.post}
+                            />
                             <RelatedTags />
                         </div>
                         <aside className="side_bar">
@@ -57,12 +60,12 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
-    const stories = state.firestore.data.stories;
-    const story = stories ? stories[id] : null;
+    const posts = state.firestore.data.posts;
+    const post = posts ? posts[id] : null;
     return {
-        story: story,
-        id: id,
-        profile: state.firebase.profile[id],
+        post: post,
+        // id: id,
+        // profile: state.firebase.profile[id],
     }
 }
 
@@ -71,7 +74,7 @@ export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((ownProps) => [
         {
-            collection: 'stories', doc: ownProps.match.params.id
+            collection: 'posts', doc: ownProps.match.params.id
         }
     ])
 )(Post)

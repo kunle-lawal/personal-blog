@@ -17,16 +17,16 @@ const Navbar = (props) => {
                 <div className="top_section_items">
                     <div className="logo_container left">
                         <div className="logo">
-                            <Link to='/'><h2>CHRONA</h2></Link>
+                            <Link to='/'><h2>TITLE</h2></Link>
                         </div>
                     </div>
                     <div className="top_section_item right connect">
                         <div className="socials">
                             <div className="social_icons">
-                                <div className="social_icon"><i class="fab fa-twitter"></i></div>
-                                <div className="social_icon"><i class="fab fa-linkedin"></i></div>
-                                <div className="social_icon"><i class="fab fa-github"></i></div>
-                                <div className="social_icon"><i class="far fa-envelope"></i></div>
+                                <div className="social_icon"><i className="fab fa-twitter"></i></div>
+                                <div className="social_icon"><i className="fab fa-linkedin"></i></div>
+                                <div className="social_icon"><i className="fab fa-github"></i></div>
+                                <div className="social_icon"><i className="far fa-envelope"></i></div>
                             </div>
                         </div>
                     </div>

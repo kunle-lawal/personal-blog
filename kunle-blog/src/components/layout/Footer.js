@@ -9,7 +9,7 @@ const Footer = () => {
                     <div className="item">
                         <form action="" className="contact">
                             <div className="input-field">
-                                <input id="email" type="email" className="validate email" onChange={"fsfs"} value={"Hello"} placeholder="Email" />
+                                <input id="email" type="email" className="validate email" onChange={()=>{return}} value={"Hello"} placeholder="Email" />
                                 <button className="btn-flat">Subscribe</button>
                             </div>
                         </form>
@@ -24,9 +24,9 @@ const Footer = () => {
                 <div className="social tab">
                     <div className="socials">
                         <div className="social_icons">
-                            <div className="social_icon"><i class="fab fa-twitter"></i></div>
-                            <div className="social_icon"><i class="fab fa-linkedin"></i></div>
-                            <div className="social_icon"><i class="fab fa-github"></i></div>
+                            <div className="social_icon"><i className="fab fa-twitter"></i></div>
+                            <div className="social_icon"><i className="fab fa-linkedin"></i></div>
+                            <div className="social_icon"><i className="fab fa-github"></i></div>
                         </div>
                     </div>
                 </div>
