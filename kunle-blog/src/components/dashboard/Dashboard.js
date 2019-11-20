@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import PostList from '../stories/PostList'
-import Pagination from './Pagination'
-import DashboardTemplate from './DashboardTemplate'
 import HeroSpace from './HeroSpace'
-import { scrollToT } from '../miniComponents/scrollToTop'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'

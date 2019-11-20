@@ -21,12 +21,12 @@ export const AboutAuthor = () => {
 export const RelatedTags = () => {
     return (
         <div className="related_tags">
-            <a>Tech</a>
-            <a>Tec</a>
-            <a>Economist</a>
-            <a>Tech</a>
-            <a>Plantations</a>
-            <a>React</a>
+            <a href="/">Tech</a>
+            <a href="/">Tec</a>
+            <a href="/">Economist</a>
+            <a href="/">Tech</a>
+            <a href="/">Plantations</a>
+            <a href="/">React</a>
         </div>
     )
 }

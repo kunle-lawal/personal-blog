@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
-import {increaseViews} from '../../../store/actions/storyStateAction'
+import {increaseViews} from '../../../store/actions/postStateAction'
 import Hero from './Hero'
 import PostContent from './PostContent'
 import Social from './Social'
@@ -20,8 +20,6 @@ class Post extends Component {
     }
 
     render(){
-       const { story } = this.props;
-
        return (
             <div className="main_body_container">
                 <div className="main_body post">

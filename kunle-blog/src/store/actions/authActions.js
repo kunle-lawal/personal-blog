@@ -54,20 +54,8 @@ export const changeName = (newName) => {
     }
 }
 
-export const showAuthModule = () => {
-    return (dispatch, getState) => {
-        dispatch({type: 'SHOW_SIGNUP_MODULE'});
-    }
-}
-
 export const showSignInModule = () => {
     return (dispatch, getState) => {
         dispatch({ type: 'SHOW_SIGNIN_MODULE' });
-    }
-}
-
-export const closeAuthModule = () => {
-    return (dispatch, getState) => {
-        dispatch({ type: 'CLOSE_MODULE' });
     }
 }

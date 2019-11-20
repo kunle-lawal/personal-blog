@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import ReactQuill from 'react-quill';
 import AsideControls from './AsideControls'
-import { createStory } from '../../../store/actions/storyStateAction'
+import { createPost } from '../../../store/actions/postStateAction'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase';
 
 
 
@@ -23,10 +24,11 @@ class PostEditor extends Component {
         post: {
            title: '',
            content: '',
+           options: {
+
+           },
+           totalPosts: this.props.totalPosts ? this.props.totalPosts[0].totalPosts : 0,
         },
-        options: {
-            
-        }
          
     }
 
@@ -99,12 +101,6 @@ class PostEditor extends Component {
         },
     }
 
-    updateOptions = (options) => {
-        this.setState({
-            options: options
-        })
-    }
-
     toggleModuleSelect = (e) => {
         this.setState({
             moduleToOpen: (e ? e.target : false) ? e.target.id : this.state.moduleToOpen,
@@ -113,6 +109,7 @@ class PostEditor extends Component {
     }
 
     savePost = () => {
+        if(this.state.changesSaved) {return 0;}
         let title = document.querySelector('#title').children[0].children[1].children[0].innerHTML;
         let content = '';
         for(var i = 0; i < this.state.editors.length; i++) {
@@ -124,8 +121,10 @@ class PostEditor extends Component {
         this.setState({
             changesSaved: true,
             post: {
+                ...this.state.post,
                 title: title,
-                content: content
+                content: content,
+                totalPosts: this.props.totalPosts[0].totalPosts
             }
         })
     }
@@ -133,7 +132,7 @@ class PostEditor extends Component {
     submitPost = () => {
         this.savePost();
 
-        this.props.createStory(this.state.post);
+        this.props.createPost(this.state.post);
         console.log('Posted');
     }
 
@@ -276,12 +275,17 @@ class PostEditor extends Component {
 
     getAsideOptions = (options) => {
         this.setState({
-            options: options
+            post: {
+                ...this.state.post,
+                options: options
+            }
         })
     }
 
     render() {
         let modules = this.state.modules;
+
+        console.log(this.state);
         return (
             <>
             <div className='top_rack'>
@@ -294,7 +298,7 @@ class PostEditor extends Component {
 
                 <div className="save_submit">
                     <div className={'save_changes btn-flat waves-effect' + (this.state.changesSaved ? ' changes_saved' : '')} onClick={this.savePost}>{this.state.changesSaved ? 'Changes Saved' : 'Save Changes'}</div>
-                    <div className="submit_changes btn-flat waves-effect" onClick={this.submitPost}>Publish</div>
+                    <div className={"submit_changes btn-flat waves-effect " + (this.state.changesSaved ? "" : "display_none")} onClick={this.submitPost}>Publish</div>
                 </div>
 
                 <div className="delete_post aside-item btn-flat noselect">
@@ -329,7 +333,6 @@ class PostEditor extends Component {
             </div>
             <aside>
                 <AsideControls
-                    updateOptions={this.updateOptions}
                     snedOptions={this.getAsideOptions}
                 />
             </aside>
@@ -384,16 +387,19 @@ var AddModule = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createStory: (story, ids) => dispatch(createStory(story, ids))
+        createPost: (post, ids) => dispatch(createPost(post, ids))
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        
+        totalPosts: state.firestore.ordered.totalItems,
     }
 }
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps)
+    connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect((props, dispatch) => [
+        ({ collection: 'totalItems'})
+    ])
 )(PostEditor)

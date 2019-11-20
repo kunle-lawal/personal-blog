@@ -1,12 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom' 
+// import { Link } from 'react-router-dom'
 import TimePosted from '../miniComponents/TimePosted'
-import StoryActions from '../miniComponents/StoryActions'
-import { scrollToTop } from '../miniComponents/scrollToTop'
 import { connect } from 'react-redux'
 
 const PostSummary = (props) => {
-    const { posts } = props;
+    // const { posts } = props;
 
     let trunc_text = (text) => {
         let maxLen = 200;

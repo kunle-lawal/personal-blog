@@ -32,15 +32,6 @@ const Navbar = (props) => {
                     </div>
                 </div>
             </div>
-
-            {/* Move this below the hero and above the main body container */}
-            {/* <div className="topic_container">
-                <div className="topic_button">
-                    <div className="btn-flat">
-                        <h4>Topics <i class="fas fa-caret-down"></i></h4>
-                    </div>
-                </div>
-            </div> */}
         </nav>
     )
     
