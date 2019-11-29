@@ -1,0 +1,314 @@
+@import "global-variables.scss";
+canvas {
+    display: none;
+    @include screen-size(large) {
+        display: initial;
+    }
+
+    @include screen-size(xlarge) {
+        display: initial;
+    }
+
+    @include screen-size(iPadProLand) {
+        display: none;
+    }
+}
+
+.comingSoonContainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 654px;
+
+    @include screen-size(small) {
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: initial;
+        width: 90%;
+        margin: auto;
+        margin-top:100px;
+    }
+
+    .avatar {
+        border-radius: 100%;
+        width: 150px;
+        height: 150px;
+        display: inline-block;
+        background-color: #a55255;
+        margin-bottom: 50px;
+        cursor: pointer;
+        position: relative;
+
+        .avi2 {
+            display: none;
+        }
+
+        &:hover > .avi1 {
+            display: none;
+        }
+
+        &:hover > .avi2 {
+            display: initial;
+        }
+
+        .eyes {
+            position: absolute;
+            width: 100%;
+            top: 65px;
+            transform: translateY(-50%);
+            text-align: center;
+
+            .eye {
+                background-color: #fff;
+                height: 10px;
+                width: 10px;
+                border-radius: 100%;
+                display: inline-block;
+                margin: 7px;
+                margin-bottom: 15px;
+
+                .ball {
+                    width: 5px;
+                    height: 5px;
+                    background: #402e25;
+                    position: relative;
+                    display: inline-block;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    border-radius: 100%;
+                    transition: all 0.5s;
+                    // border: 15px solid #333;
+                }
+            }
+        }
+
+        &:hover > .eyes {
+            display: none;
+        }
+
+    }
+
+    .title {
+        h2 {
+            color:white;
+            line-height: 0;
+            // text-transform: uppercase;
+            font-family: $lato;
+            font-weight: 700;
+            font-size: 50px;
+            margin-bottom: 60px;
+
+            @include screen-size(small) {
+                font-size: 10vw;
+            }
+        }
+
+        h1 {
+            color: white;
+            // text-transform: uppercase;
+            font-family: $grate;
+            font-weight: 700;
+            font-size: 100px;
+            transition: opacity 0.8s;
+
+            line-height: initial;
+            height: 100px;
+            line-height: 100px;
+            padding: initial;
+            margin: initial;
+            position: relative;
+            bottom: 20px;
+
+            @include screen-size(small) {
+                font-size: 15vw;
+            }
+        }
+    }
+
+    .description {
+        p {
+            color:#fff;
+            margin:20px 0 20px 0;
+            width:90%;
+            display: inline-block;
+            
+        }
+    }
+
+    @keyframes bounce {
+
+        from,
+        20%,
+        53%,
+        80%,
+        to {
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transform: translate3d(0, 0, 0);
+        }
+
+        40%,
+        43% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -30px, 0);
+        }
+
+        70% {
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            transform: translate3d(0, -15px, 0);
+        }
+
+        90% {
+            transform: translate3d(0, -4px, 0);
+        }
+    }
+
+    .newsletter {
+        display: block;
+        animation: bounce 2s 5;
+        animation-delay: 3s;
+
+        &:focus-within {
+            animation: initial;
+        }
+
+        @include screen-size(small) {
+            animation: initial;
+        }
+        // transition: all 0.5s;
+
+        .item {
+            display: inline-block;
+            margin: auto;
+            width: 100%;
+
+            form {
+                .input-field {
+                    height: 50px;
+
+                    input {
+                        padding-left: 10px;
+                        display: inline-block;
+                        width: 400px;
+                        background-color: #0b0c0e69;
+                        color: white;
+                        height: 100%;
+                        border-bottom: initial !important; 
+
+                        @include screen-size(small) {
+                            animation: bounce 2s 5;
+                            animation-delay: 3s;
+
+                            &:focus-within {
+                                animation: initial;
+                            }
+                        }
+                       
+
+                        @include screen-size(small) {
+                            width: 70%
+                        }
+                    }
+
+                    input:focus>button {
+                        color: red;
+                    }
+
+                    .response {
+                        color: white;
+                    }
+
+                    button {
+                        display: inline-block;
+                        color: #222;
+                        font-weight: 900;
+                        height: 47px;
+                        font-size: 16px;
+                        line-height: 1.15;
+                        color: white;
+
+                        position: absolute;
+                        height: 80%;
+                        // background-color
+
+                        background: #a55255;
+                        top: 0;
+                        bottom: 0;
+                        right: 127px;
+                        margin: auto;
+                        width:100px;
+                        transition: all 0.5s;
+                        
+                        @include screen-size(kindasmall) {
+                            right: 5vw;
+                        }
+
+                        @include screen-size(small) {
+                            display: block;
+                            position: relative;
+                            width: 72%;
+                            height: 100%;
+                            right: 0;
+                        }
+                        
+                        &:hover {
+                            background-color: #d16666 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .social {
+        margin-top: 30px;
+        @include screen-size(small) {
+            margin-top: 100px;
+        }
+        .social_media_icons {
+            
+
+            .fa {
+                color: white;
+                border: 1px solid white;
+                border-radius: 100%;
+                padding: 20px;
+                font-size: 20px;
+                margin: 20px;
+
+                @include screen-size(small) {
+                    padding: 10px;
+                    margin:10px;
+                    font-size: 15px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color:white;
+                    color:#23272e;
+                }
+            }
+        }
+    }
+
+}
+
+footer {
+    text-align: center;
+    .copy {
+        display: inline-block;
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        right:0px;
+        margin: auto;
+
+        @include screen-size(small) {
+            position: relative;
+            top:50px;
+        }
+    }
+}

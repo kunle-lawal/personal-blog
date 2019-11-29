@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactQuill from 'react-quill';
 import AsideControls from './AsideControls'
 import { createPost } from '../../../store/actions/postStateAction'
+import { uploadImage } from '../../../store/actions/uploadActions'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { firestoreConnect } from 'react-redux-firebase';
@@ -226,6 +227,7 @@ class PostEditor extends Component {
 
     trackId = (e) => {
         const currentId = Number(e.target.parentElement.parentElement.id);
+        console.log(e.target.id);
         this.setState({
             currentId: currentId,
             makingChanges: true,
@@ -234,7 +236,6 @@ class PostEditor extends Component {
     }
 
     unTrackId = () => {
-        console.log(this.state);
         this.setState({
             makingChanges: false,
         })
@@ -244,7 +245,7 @@ class PostEditor extends Component {
         if(!this.state.makingChanges){return false}
         let modules = this.state.modules
         let allContent = this.state.allContent
-        console.log(modules);
+        // console.log(modules);
         let thisModule = modules[this.state.currentId][0];
         let moduleToAdd = modules[this.state.currentId][1];
         let placeholder = "Add " + moduleToAdd;
@@ -273,6 +274,10 @@ class PostEditor extends Component {
         })
     }
 
+    uploadImage = (url) => {
+        console.log('upload');
+    }
+
     getAsideOptions = (options) => {
         this.setState({
             post: {
@@ -284,8 +289,6 @@ class PostEditor extends Component {
 
     render() {
         let modules = this.state.modules;
-
-        console.log(this.state);
         return (
             <>
             <div className='top_rack'>
@@ -387,7 +390,8 @@ var AddModule = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createPost: (post, ids) => dispatch(createPost(post, ids))
+        createPost: (post, ids) => dispatch(createPost(post, ids)),
+        uploadImage: (url) => dispatch(uploadImage(url))
     }
 }
 

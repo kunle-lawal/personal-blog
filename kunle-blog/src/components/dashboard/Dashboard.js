@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import PostList from '../stories/PostList'
 import HeroSpace from './HeroSpace'
+import Navbar from '../layout/Navbar';
+import Footer from '../layout/Footer'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux'
@@ -77,11 +79,15 @@ class Dashboard extends Component {
             return <Redirect to='/404' />
         } else if (!nav.mobileToggled) {
             return (
-                <div id="main_body_container" className="main_body_container">
-                    <HeroSpace posts={filteredPosts}/>
-                    <PostList posts={filteredPosts} />
-                    {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
-                </div>
+                <>
+                    <Navbar />
+                    <div id="main_body_container" className="main_body_container">
+                        <HeroSpace posts={filteredPosts}/>
+                        <PostList posts={filteredPosts} />
+                        {/* {(this.props.totalStories > 0) ? <Pagination paginateProp={paginationState}/> : null} */}
+                    </div>
+                    <Footer />
+                </>
             )
         } else {
             return (
