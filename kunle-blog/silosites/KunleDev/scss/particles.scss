@@ -1,0 +1,142 @@
+@import "global-variables.scss";
+
+
+body {
+    background-color:white; 
+}
+
+canvas {
+    float: right;
+    margin: 30px;
+}
+
+@keyframes press {
+    from {
+        box-shadow: 0px 2px 0px rgb(160, 160, 160);
+        top:0;
+    }
+    to {
+        box-shadow: 0px 1px 0px rgb(160, 160, 160);
+        top:3px;
+    }
+}
+
+.particleControlContainer {
+    // border:1px solid #222;
+    padding:30px 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    // float: right;
+    display: inline-block;
+    // width: 50%;
+
+    .particleControl {
+        width: 50%;
+        .inputsFields {
+            // width: 50%;
+            text-align: left;
+            
+            .target {
+                width: 30%;
+                margin: 30px;
+                display: inline-block;
+                
+                label {
+                    color: #222;
+                    // text-decoration: underline;
+                }
+
+                input {
+                    border: 1px solid #585858;
+                    height: 30px;
+                    margin: 10px 0;
+                    padding-left: 5px;
+                }
+
+                .startSimulation {
+                    border: 1px solid #efefef;
+                    float: right;
+                    box-shadow: 0px 2px 0px rgb(160, 160, 160);
+                    position: relative;
+                    top:0;
+                    animation: press 0.5s 4;
+                    animation-delay: 4s;
+
+                    &:focus {
+                        background-color: initial;
+                    }
+
+                    &:active {
+                        box-shadow: 0px 1px 0px rgb(160, 160, 160);
+                        top:3px;
+                    }
+                }
+            }
+            .targetSettings {
+                .setting {
+                    width: 30%;
+                    margin: 30px;
+                    display: inline-block;
+
+                    label {
+                        color:#222;
+                        cursor: pointer;
+                        font-size: 13px;
+                        // text-decoration: underline;
+
+                        span {
+                            visibility: hidden;
+                        }
+
+                        &:hover > span {
+                            visibility: visible;
+                        }
+                    }
+
+                    .random {
+                        display: inline-block;
+                        float: right;
+                        color: #222222;
+                        font-size: 13px;
+                        padding: 5px;
+                        cursor: pointer;
+                    }
+
+                    input {
+                        border: 1px solid #585858;
+                        height: 30px;
+                        margin:10px 0;
+                        padding-left:5px;
+                        // transition: all 0.5s;
+                        position: relative;
+                        top: 0;
+                    }
+
+                    .noSplit {
+                        cursor: pointer;
+                        position: relative;
+                        input {
+                            &:nth-child(2) {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    .split {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        margin: auto;
+                        gap:20px;
+                        width: 100%;
+
+                        input {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

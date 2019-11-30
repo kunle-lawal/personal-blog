@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.0.0-alpha1.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/particles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="particleControlContainer">
+        <div class="particleControl">
+            <div class="inputsFields">
+                <div class="target">
+                    <label for="targetParticle">Target Particle</label>
+                    <input type="number" class="targetParticle" id="targetParticle" min="0">
+
+                    <label for="totalParticle">Total Particles</label>
+                    <input type="number" class="totalParticle" id="totalParticle" min="0">
+                </div>
+
+                <div class="target">
+                    <button class="btn-flat startSimulation" id="startSimulation">Simulate</button>
+                </div>
+
+                <div class="targetSettings">
+                    <div class="position setting">
+                        <h3>Position</h3>
+                        <hr>
+                        <label for="position-x">x - <span>position of particle</span></label>
+                        <div class="random" id="position_x"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="position_x" id="position_x1" min="0" value=0>
+                            <input type="number" class="position_x" id="position_x2" min="0" value=0>
+                        </div>
+                        <label for="position_y">y - <span>position of particle</span></label>
+                        <div class="random" id="position_y"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="position_y" id="position_y1" min="0" value=0>
+                            <input type="number" class="position_y" id="position_y2" min="0" value=0>
+                        </div>
+                    </div>
+
+                    <div class="velocity setting">
+                        <h3>Speed</h3>
+                        <hr>
+                        <label for="velocity_x">vx - <span>speed of particle</span></label>
+                        <div class="random" id="velocity_x"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="velocity_x" id="velocity_x1" value=0>
+                            <input type="number" class="velocity_x" id="velocity_x2" value=0>
+                        </div>
+                        <label for="velocity_y">vy - <span>speed of particle</span></label>
+                        <div class="random" id="velocity_y"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="velocity_y" id="velocity_y1" value=0>
+                            <input type="number" class="velocity_y" id="velocity_y2" value=0>
+                        </div>
+                    </div>
+
+                    <div class="gravity setting">
+                        <h3>Acceleration</h3>
+                        <hr>
+                        <label for="gravity_x">ax - <span>acceleration of particle</span></label>
+                        <div class="random" id="gravity_x"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="gravity_x" id="gravity_x1" value=0>
+                            <input type="number" class="gravity_x" id="gravity_x2" value=0>
+                        </div>
+                        <label for="gravity_y">ay - <span>acceleration of particle</span></label>
+                        <div class="random" id="gravity_y"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="gravity_y" id="gravity_y1" value=0>
+                            <input type="number" class="gravity_y" id="gravity_y2" value=0>
+                        </div>
+                        <label for="non_gravity_y" style="visibility: hidden;">ay - <span>acceleration of particle</span></label>
+                        <div class="noSplit">
+                            <input type="number" class="non_gravity_y" id="non_gravity_y1" style="visibility: hidden;" value=0
+                            <input type="number" class="non_gravity_y" id="non_gravity_y2" style="visibility: hidden;" value=0>
+                        </div>
+                    </div>
+
+                    <div class="misc setting">
+                        <h3>MISC</h3>
+                        <hr>
+                        <label for="particle_size">size - <span>size of particle</span></label>
+                        <div class="random" id="particle_size"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="particle_size" id="particle_size1" min="0" value=0>
+                            <input type="number" class="particle_size" id="particle_size2" min="0" value=0>
+                        </div>
+                        <label for="particle_life">life - <span>particle life span</span></label>
+                        <div class="random" id="particle_life"><i class="fas fa-random"></i></div>
+                        <div class="noSplit">
+                            <input type="number" class="particle_life" id="particle_life1" min="0" value=0>
+                            <input type="number" class="particle_life" id="particle_life2" min="0" value=0>
+                        </div>
+                        <label for="particle_color">color of particle</label>
+                        <div class="noSplit">
+                            <input type="text" class="particle_color" id="particle_color" min="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="canvas" width="800px" height="800px" style="background-color: #222"></canvas>
+    <script src="static/js/particles.js"></script>
+</body>
+</html>
