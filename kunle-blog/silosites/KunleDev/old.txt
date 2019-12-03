@@ -1,0 +1,22 @@
+<!-- <div class="panel">
+                        <div class="position setting">
+                            <div class="random" id="position_x"><i class="fas fa-random"></i></div>
+                            <div class="noSplit">
+                                <div id="position_x1" class="position_x variable">
+                                    </span><input type="number" class="position_x" id="position_x1" min="0" value=0>
+                                </div>
+                                <div id="position_x2" class="position_x variable">
+                                    <input type="number" class="position_x" id="position_x2" min="0" value=0>
+                                </div>
+                            </div>
+                            <div class="random" id="position_y"><i class="fas fa-random"></i></div>
+                            <div class="noSplit">
+                                <div class="position_y">
+                                    <input type="number" class="position_y" id="position_y1" min="0" value=0>
+                                </div>
+                                <div class="position_y">
+                                    <input type="number" class="position_y" id="position_y2" min="0" value=0>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->

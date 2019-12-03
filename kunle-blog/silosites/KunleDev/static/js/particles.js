@@ -1,13 +1,24 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-// canvas.width = document.body.clientWidth; //document.width is obsolete
-// canvas.height = document.body.clientHeight; //document.height is obsolete
+canvas.width = document.body.clientWidth; //document.width is obsolete
+canvas.height = document.body.clientHeight; //document.height is obsolete
 var cw = canvas.width;
 var ch = canvas.height;
 var map_w = cw * 1.3;
 var map_h = ch * 1.3;
 var totalDots = 900;
 var maxVPlayerDis = 100;
+
+$(window).resize(function () {
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+
+    cw = canvas.width;
+    ch = canvas.height;
+
+    map_w = cw * 1.3;
+    map_h = ch * 1.3;
+});
 
 //partciles on the screen//
 var offset = {
@@ -87,32 +98,32 @@ window.requestAnimFrame = (function () {
 function draw_dots(dot) {
     ctx.save();
     ctx.translate((offset.directionX), (offset.directionY));
+    var showLine = $('#btn-line').hasClass('button_clicked');
     // clear the viewport
-    //ctx.clearRect(-offset.directionX, -offset.directionY, cw,ch);
+    // ctx.clearRect(-offset.directionX, -offset.directionY, cw,ch);
 
     // var dis = return_distance(vPlayer.x, vPlayer.y, dot.x, dot.y);
-    // // if (dis < maxVPlayerDis) {
-    // for (var j = 0; j < dots.length; j++) {
-    //     if ((dot.r / 4) > dots[j].r) {
-    //         var dis_ = return_distance(dots[j].x, dots[j].y, dot.x, dot.y);
-    //         // dot.eat_dis = ((dot.r) * (dot.lived * 0.1)) + 200;
-    //         if ((dis_ <= dot.eat_dis) || (dis < maxVPlayerDis && dis_ <= 200)) {
-    //             dot.feeding = true;
+    // if (dis < maxVPlayerDis) {
+    for (var j = 0; j < dots.length; j++) {
+        if ((dot.r / 2) > dots[j].r) {
+            var dis_ = return_distance(dots[j].x, dots[j].y, dot.x, dot.y);
+            // dot.eat_dis = ((dot.r) * (dot.lived * 0.1)) + 200;
+            if ((dis_ <= 100) && showLine) {
+                dot.feeding = true;
 
-    //             dots[j].life -= dot.greed;
-    //             dot.life += dot.greed * 0.3;
-    //             //Draw line between dots
-    //             ctx.beginPath();
-    //             ctx.moveTo(dot.x, dot.y);
-    //             ctx.strokeStyle = "rgba(255, 255, 255, 1)";
-    //             ctx.lineTo(dots[j].x, dots[j].y);
-    //             ctx.lineWidth = dis_ / (dot.eat_dis * 5);
-    //             ctx.stroke();
-    //             dot.dots_touched++;
-    //         }
-    //     }
-    // }
-    // }
+                dots[j].life -= dot.greed;
+                dot.life += dot.greed * 0.3;
+                //Draw line between dots
+                ctx.beginPath();
+                ctx.moveTo(dot.x, dot.y);
+                ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+                ctx.lineTo(dots[j].x, dots[j].y);
+                ctx.lineWidth = dis_ / (dot.eat_dis * 5);
+                ctx.stroke();
+                dot.dots_touched++;
+            }
+        }
+    }
 
     ctx.beginPath();
     ctx.arc(dot.x, dot.y, dot.r + 1, 0, (2 * Math.PI));
@@ -127,6 +138,8 @@ function update_dots() {
         var dot = dots[i];
         dot.x += dot.vx;/// randNum(2, 7);
         dot.y += dot.vy;/// randNum(2, 7);
+        dot.vx += dot.ax;
+        dot.vy += dot.ay;
         var disToVPlayer = return_distance(vPlayer.x, vPlayer.y, dot.x, dot.y);
         var dis_to_center = return_distance(cw / 2, ch / 2, dot.x, dot.y);
         var ang = return_angle(vPlayer.x, vPlayer.y, dot.x, dot.y);
@@ -136,10 +149,26 @@ function update_dots() {
             draw_dots(dot);
         }
 
+        if(dot.x > map_w) {
+            dot.x = 0;
+        }
+
+        if (dot.y > map_h) {
+            dot.y = 0;
+        }
+
+        if (dot.x < 0) {
+            dot.x = map_w;
+        }
+
+        if (dot.y < 0) {
+            dot.y = map_h;
+        }
+
         //randomly change direction
         if ((randNum(1, 1000) <= 5) && dis_to_center > 400) {
-            dot.vx = (randNum(-5, 5) / randNum(2, 7)) //* (1 / dot.life);
-            dot.vy = (randNum(-5, 5) / randNum(2, 7)) //* (1 / dot.life);
+            // dot.vx = (randNum(-5, 5) / randNum(2, 7)) //* (1 / dot.life);
+            // dot.vy = (randNum(-5, 5) / randNum(2, 7)) //* (1 / dot.life);
         }
     }
 }
@@ -150,7 +179,7 @@ function update_dots() {
 var dots = [];
 var addDots = ({ totalParticle, position_x, position_y, velocity_x, velocity_y, gravity_x, gravity_y, particle_size, particle_life, particle_color }) => {
     var showVal = (arr) => { return arr[2] ? randNum(arr[0], arr[1]) : arr[0]}
-    for (var i = 0; i < totalParticle; i++) {
+    for (var i = 0; i < (totalParticle ? totalParticle : randNum(100, 400)); i++) {
         dots.push({
             x: showVal(position_x) ? showVal(position_x) : randNum(-map_w, map_w),
             y: showVal(position_y) ? showVal(position_y) : randNum(-map_h, map_h),
@@ -168,7 +197,7 @@ var addDots = ({ totalParticle, position_x, position_y, velocity_x, velocity_y, 
 
 var simulationVariables = {
     targetParticle: 0,
-    totalParticle: 0,
+    totalParticle: 100,
     position_x: 0,
     position_y: 0,
     velocity_x: 0,
@@ -188,10 +217,10 @@ function start() {
     started = true;
 }
 
-$(".random").click(function() {
-    var id = $(this).attr('id');
-    $("input."+id).parent().toggleClass('split');
-    $("input." + id).parent().toggleClass('noSplit');
+$(".random_button").click(function() {
+    $(this).toggleClass('button_clicked');
+    $(this).children().toggleClass('switch_on');
+    $(this).children().toggleClass('switch_off');
 })
 
 $("#startSimulation").click(() => {
@@ -199,22 +228,26 @@ $("#startSimulation").click(() => {
     var variableIDs = []
     var prevId = '';
     variableIDs = $("input").map((i) => {
-        return $("input").get(i).className;
+        if ($("input").get(i).className != "") {
+            return $("input").get(i).className;
+        }
     })
+    // console.log(variableIDs)
     Array.prototype.forEach.call(variableIDs, id => {
         if (prevId !== id && $("input." + id).length > 1) {
-            // console.log(id + " : " + $("input."+id).length)
-            let val1 = Number($("#" + id + "1").val());
-            let val2 = (Number($("#" + id + "2").val()) < val1) ? Number(($("#" + id + "2").val(val1)).val()) : (Number($("#" + id + "2").val()));
+            var id1 = $("input#" + id + "1");
+            var id2 = $("input#" + id + "2")
+            let val1 = Number(id1.val());
+            let val2 = (Number(id2.val()) < val1) ? Number((id2.val(val1)).val()) : (Number(id2.val()));
             let simVarArr = [
                 val1,
                 val2,
-                ($("input." + id).parent().attr('class') === "split") ? true : false 
+                ($("#" + "btn-" + id).hasClass('button_clicked')) ? true : false 
             ]
             simulationVariables[id] = simVarArr;
             prevId = id;
         } else if (prevId !== id) {
-            simulationVariables[id] = (id === "particle_color") ? $("#" + id).val() : Number($("#" + id).val())
+            simulationVariables[id] = (id === "particle_color") ? $("input#" + id).val() : Number($("input#" + id).val())
         }
     })
     console.log(simulationVariables);
@@ -222,9 +255,9 @@ $("#startSimulation").click(() => {
     if(!started) {
         start();
     }
+
     // var variableID = $("input").get(i).id;
     // var variableVal = $("#" + variableID).val();
     // simulationVariables.variableID = variableVal;
-        // console.log(variableIDs);
+    // console.log(variableIDs);
 })
-

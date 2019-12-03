@@ -5,9 +5,60 @@ body {
     background-color:white; 
 }
 
+input {
+    &::placeholder {
+        color:#c34d4d;
+        font-family: $quicksand;
+        font-weight: 900;
+    }
+}
+
+.message {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    margin:auto;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding:10px;
+
+    @include screen-size(small) {
+        display: flex;
+    }
+
+    @include screen-size(kindasmall) {
+        display: flex;
+    }
+}
+
 canvas {
-    float: right;
-    margin: 30px;
+    display: none;
+
+    @include screen-size(large) {
+        display: initial;
+    }
+
+    @include screen-size(xlarge) {
+        display: initial;
+    }
+
+    @include screen-size(iPadProLand) {
+        display: initial;
+    }
+
+    @include screen-size(iPadLand) {
+        display: initial;
+    }
+
+    @include screen-size(iPad) {
+        display: initial;
+    }
 }
 
 @keyframes press {
@@ -21,119 +72,255 @@ canvas {
     }
 }
 
+.startSimulation {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #efefef;
+    float: right;
+    box-shadow: 0px 2px 0px rgb(160, 160, 160);
+    position: relative;
+    top: 0;
+    animation: press 0.5s 4;
+    animation-delay: 4s;
+
+    &:focus {
+        background-color: white;
+    }
+
+    &:active {
+        box-shadow: 0px 1px 0px rgb(160, 160, 160);
+        top: 3px;
+    }
+}
+
+.accordion {
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    height: 50px;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-bottom: 1px solid #424141;
+    border-left: 1px solid #424141;
+    box-shadow: 0px 1px 1px #424141;
+    position: relative;
+
+    &:hover {
+        background-color: initial;
+    }
+
+    &:focus {
+        background-color: #222;
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        right:10px;
+        border: solid #fff;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotateZ(45deg);
+        transition: all 0.2s;
+    }
+}
+
+.active {
+    &:after {
+        transform: rotateZ(-135deg);
+        top:25px;
+    }
+}
+
+.active,
+.accordion:hover {
+    // background-color: #ccc;
+}
+
+.panel {
+    // padding: 0 18px;
+    // display: none;
+    max-height: 0;
+    overflow: hidden;
+    // width: 95%;
+    transition: max-height 0.2s ease-out;
+    border-left: 5px solid rgba(0, 0, 0, 0);
+
+    .accordion {
+        position: relative;
+        width:100%;
+        // left:10%;
+        // border-left: 10px solid #23272e;
+    }
+}
+
 .particleControlContainer {
     // border:1px solid #222;
-    padding:30px 50px;
+    display: none;
+    padding:30px;
     position: absolute;
     top: 0;
-    right: 0;
     left: 0;
     margin: auto;
     // float: right;
-    display: inline-block;
-    // width: 50%;
+    width: 25%;
+    opacity: 0.2;
+    transition: opacity 0.5s;
+
+    @include screen-size(xlarge) {
+        width: 25%;
+        display: inline-block;
+    }
+
+    @include screen-size(large) {
+        width: 25%;
+        display: inline-block;
+    }
+
+    @include screen-size(iPadProLand) {
+        width: 30%;
+        display: inline-block;
+    }
+
+    @include screen-size(iPadLand) {
+        width: 35%;
+        display: inline-block;
+    }
+
+    @include screen-size(iPad) {
+        width: 40%;
+        display: inline-block;
+    }
+
+
+
+    &:hover {
+        opacity: 1;
+    }
 
     .particleControl {
-        width: 50%;
+        width: 100%;
         .inputsFields {
             // width: 50%;
             text-align: left;
-            
-            .target {
-                width: 30%;
-                margin: 30px;
-                display: inline-block;
-                
-                label {
-                    color: #222;
-                    // text-decoration: underline;
+            .setting {
+                width: 100%;
+                // margin: auto;
+                display: block;
+                background-color: white;
+                // padding: 20px 0 20px 0;
+
+                .property {
+                    border-bottom: 1px solid #efefef;
+                    padding: 0 10px 0 10px;
+                    border-left: 5px solid #c34d4d;
                 }
 
-                input {
-                    border: 1px solid #585858;
-                    height: 30px;
-                    margin: 10px 0;
-                    padding-left: 5px;
-                }
-
-                .startSimulation {
-                    border: 1px solid #efefef;
-                    float: right;
-                    box-shadow: 0px 2px 0px rgb(160, 160, 160);
+                .inputs {
+                    text-align: left;
                     position: relative;
-                    top:0;
-                    animation: press 0.5s 4;
-                    animation-delay: 4s;
+                    display: grid;
+                    grid-template-columns: 1fr 2fr;
+                    justify-content: center;
+                    align-items: center;
 
-                    &:focus {
-                        background-color: initial;
-                    }
-
-                    &:active {
-                        box-shadow: 0px 1px 0px rgb(160, 160, 160);
-                        top:3px;
-                    }
-                }
-            }
-            .targetSettings {
-                .setting {
-                    width: 30%;
-                    margin: 30px;
-                    display: inline-block;
-
-                    label {
-                        color:#222;
-                        cursor: pointer;
-                        font-size: 13px;
-                        // text-decoration: underline;
-
-                        span {
-                            visibility: hidden;
-                        }
-
-                        &:hover > span {
-                            visibility: visible;
-                        }
-                    }
-
-                    .random {
+                    span {
                         display: inline-block;
+                        font-size:12px;
+                    }
+                    .input_vals {
+                        display: flex;
+                        // display: inline-block;
                         float: right;
-                        color: #222222;
-                        font-size: 13px;
-                        padding: 5px;
-                        cursor: pointer;
-                    }
-
-                    input {
-                        border: 1px solid #585858;
-                        height: 30px;
-                        margin:10px 0;
-                        padding-left:5px;
-                        // transition: all 0.5s;
-                        position: relative;
-                        top: 0;
-                    }
-
-                    .noSplit {
-                        cursor: pointer;
-                        position: relative;
+                        span {
+                            width: initial;
+                        }
                         input {
-                            &:nth-child(2) {
-                                display: none;
+                            border: 1px solid #585858;
+                            height: 15px;
+                            font-size: 11px;
+                            margin: 10px 3px 10px 3px;
+                            padding-left: 5px;
+                            color:#222;
+                            font-family: $quicksand;
+                            font-weight:700;
+                            
+                            &:focus-within {
+                                box-shadow: initial;
+                            }
+
+                            &:focus {
+                                box-shadow: initial;
                             }
                         }
+                        .addEquation {
+                            position: absolute;
+                        }
+                    }
+                }
+
+                @keyframes switch {
+                    0% {
+                        left:0;
                     }
 
-                    .split {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr;
-                        margin: auto;
-                        gap:20px;
-                        width: 100%;
+                    50% {
+                        left: 5px;
+                    }
 
-                        input {
+                    100% {
+                        left: 0;
+                    }
+                }
+
+                .random {
+                    display: inline-block;
+                    color: #222222;
+                    width: 100%;
+                    position: relative;
+                    padding:10px;
+                    font-size: 12px;
+
+                    .random_button {
+                        height: initial;
+                        width:10%;
+                        position: relative;
+                        padding:3px;
+                        border:1px solid #3a414e;
+                        // box-shadow: 0px 1px 1px #3c4048;
+                        background-color: #fff;
+                        border-radius: 20px;
+                        margin-left:10px;
+
+                        &:hover>.switch_off {
+                            animation: switch 0.7s 4;
+                            animation-delay: 1s;
                         }
+                    }
+
+                    .button_clicked {
+                        background-color: #3c4048;
+                    }
+
+                    .switch {
+                        background-color: #3c4048;
+                        height: 12px;
+                        width: 12px;
+                        border-radius: 100%;
+                        position: relative;
+                        left: 0;
+                        transition: left 0.3s;
+                    }
+
+                    .switch_on {
+                        left: 17px;
+                        background-color: #fff;
                     }
                 }
             }
