@@ -231,6 +231,7 @@ strong {
 
 body {
   background-color: white;
+  overflow: hidden;
 }
 
 input::placeholder {
@@ -289,33 +290,26 @@ canvas {
   }
 }
 
-@keyframes press {
-  from {
-    box-shadow: 0px 2px 0px #a0a0a0;
-    top: 0;
-  }
-  to {
-    box-shadow: 0px 1px 0px #a0a0a0;
-    top: 3px;
-  }
-}
 .startSimulation {
-  width: 100%;
   background-color: white;
-  border: 1px solid #efefef;
-  float: right;
-  box-shadow: 0px 2px 0px #a0a0a0;
-  position: relative;
-  top: 0;
-  animation: press 0.5s 4;
-  animation-delay: 4s;
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  opacity: 0.1;
+  font-size: 10px;
+  transition: opacity 0.4s;
+}
+.startSimulation:hover {
+  opacity: 1;
 }
 .startSimulation:focus {
   background-color: white;
 }
 .startSimulation:active {
   box-shadow: 0px 1px 0px #a0a0a0;
-  top: 3px;
 }
 
 .accordion {
@@ -324,38 +318,41 @@ canvas {
   cursor: pointer;
   padding: 20px;
   width: 100%;
-  height: 50px;
+  height: 20px;
+  line-height: 5px;
   border: none;
   text-align: left;
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-  border-bottom: 1px solid #424141;
-  border-left: 1px solid #424141;
-  box-shadow: 0px 1px 1px #424141;
+  border-left: 1px solid #525252;
+  border-top: 1px solid #525252;
+  box-shadow: 0px 1px 1px #525252;
   position: relative;
+  text-transform: lowercase;
 }
 .accordion:hover {
-  background-color: initial;
+  background-color: #333333;
 }
 .accordion:focus {
-  background-color: #222;
+  background-color: #333333;
 }
-.accordion:after {
+.accordion:before {
   content: "";
-  position: absolute;
-  right: 10px;
+  position: relative;
+  top: -3px;
   border: solid #fff;
-  border-width: 0 3px 3px 0;
+  border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
   transform: rotateZ(45deg);
   transition: all 0.2s;
+  margin-right: 10px;
 }
 
-.active:after {
+.active:before {
   transform: rotateZ(-135deg);
-  top: 25px;
+  top: 0px;
 }
 
 .panel {
@@ -369,44 +366,63 @@ canvas {
   width: 100%;
 }
 
+.fpsCounter {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  color: #c34d4d;
+  text-shadow: 0px 1px #c34d4d;
+}
+
 .particleControlContainer {
   display: none;
   padding: 30px;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   margin: auto;
-  width: 25%;
+  width: 20%;
   opacity: 0.2;
   transition: opacity 0.5s;
 }
+.particleControlContainer .before {
+  background-color: red;
+  border: 10px solid red;
+  height: 20px;
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  cursor: move;
+}
 @media screen and (min-width: 1441px) {
   .particleControlContainer {
-    width: 25%;
+    width: 20%;
     display: inline-block;
   }
 }
 @media screen and (min-width: 1259px) and (max-width: 1440px) {
   .particleControlContainer {
-    width: 25%;
+    width: 20%;
     display: inline-block;
   }
 }
 @media only screen and (min-device-width: 1366px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
   .particleControlContainer {
-    width: 30%;
+    width: 35%;
     display: inline-block;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
   .particleControlContainer {
-    width: 35%;
+    width: 40%;
     display: inline-block;
   }
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   .particleControlContainer {
-    width: 40%;
+    width: 45%;
     display: inline-block;
   }
 }
@@ -437,6 +453,15 @@ canvas {
   justify-content: center;
   align-items: center;
 }
+.particleControlContainer .particleControl .inputsFields .setting .inputs .mouse_icon {
+  margin: 13px 5px;
+  font-size: 10px;
+  color: #222;
+  cursor: pointer;
+}
+.particleControlContainer .particleControl .inputsFields .setting .inputs .mouse_icon_clicked {
+  color: #c34d4d;
+}
 .particleControlContainer .particleControl .inputsFields .setting .inputs span {
   display: inline-block;
   font-size: 12px;
@@ -464,6 +489,21 @@ canvas {
 .particleControlContainer .particleControl .inputsFields .setting .inputs .input_vals input:focus {
   box-shadow: initial;
 }
+.particleControlContainer .particleControl .inputsFields .setting .inputs .input_vals .and_or {
+  height: 17px;
+  line-height: 17px;
+  padding: 0 10px;
+  margin: 0px 11px;
+  margin-top: 10px;
+  display: flex;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.particleControlContainer .particleControl .inputsFields .setting .inputs .input_vals .and {
+  transform: rotateX(360deg);
+}
 .particleControlContainer .particleControl .inputsFields .setting .inputs .input_vals .addEquation {
   position: absolute;
 }
@@ -478,7 +518,32 @@ canvas {
     left: 0;
   }
 }
-.particleControlContainer .particleControl .inputsFields .setting .random {
+@keyframes flipSwitch {
+  0% {
+    right: 100%;
+  }
+  20% {
+    right: 3px;
+  }
+  40% {
+    right: 20px;
+  }
+  60% {
+    right: 3px;
+  }
+  80% {
+    right: 10px;
+  }
+  100% {
+    right: 3px;
+  }
+}
+.particleControlContainer .particleControl .inputsFields .setting .option select {
+  display: block;
+  height: initial;
+  font-family: "Darker Grotesque", sans-serif;
+}
+.particleControlContainer .particleControl .inputsFields .setting .toggle {
   display: inline-block;
   color: #222222;
   width: 100%;
@@ -486,35 +551,77 @@ canvas {
   padding: 10px;
   font-size: 12px;
 }
-.particleControlContainer .particleControl .inputsFields .setting .random .random_button {
+.particleControlContainer .particleControl .inputsFields .setting .toggle select {
+  display: block;
   height: initial;
-  width: 10%;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 900;
+}
+.particleControlContainer .particleControl .inputsFields .setting .toggle span {
+  margin-left: 10px;
+}
+.particleControlContainer .particleControl .inputsFields .setting .toggle span .tip {
+  font-size: 12px;
+  font-family: "Darker Grotesque", sans-serif;
+  font-weight: 900;
+}
+.particleControlContainer .particleControl .inputsFields .setting .toggle .toggle_button {
+  height: initial;
+  width: 15%;
+  height: 20px;
   position: relative;
   padding: 3px;
   border: 1px solid #3a414e;
   background-color: #fff;
   border-radius: 20px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
-.particleControlContainer .particleControl .inputsFields .setting .random .random_button:hover > .switch_off {
+.particleControlContainer .particleControl .inputsFields .setting .toggle .toggle_button:hover > .switch_off {
   animation: switch 0.7s 4;
   animation-delay: 1s;
 }
-.particleControlContainer .particleControl .inputsFields .setting .random .button_clicked {
+.particleControlContainer .particleControl .inputsFields .setting .toggle .button_clicked {
   background-color: #3c4048;
 }
-.particleControlContainer .particleControl .inputsFields .setting .random .switch {
+.particleControlContainer .particleControl .inputsFields .setting .toggle .switch {
   background-color: #3c4048;
   height: 12px;
   width: 12px;
   border-radius: 100%;
-  position: relative;
-  left: 0;
-  transition: left 0.3s;
+  position: absolute;
+  right: inherit;
+  transition: right 0.3s;
+  border: initial;
 }
-.particleControlContainer .particleControl .inputsFields .setting .random .switch_on {
-  left: 17px;
+.particleControlContainer .particleControl .inputsFields .setting .toggle .switch:focus {
+  background-color: #ff4545;
+}
+.particleControlContainer .particleControl .inputsFields .setting .toggle .switch_on {
   background-color: #fff;
+  animation: flipSwitch 0.8s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+.particleControlContainer .particleControl .inputsFields .setting .grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.particleControlContainer .particleControl .inputsFields .setting .grid-two .toggle_button {
+  width: 40%;
+}
+.particleControlContainer .particleControl .inputsFields .setting .grid-four {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.particleControlContainer .particleControl .inputsFields .setting .grid-four .toggle_button {
+  width: 60%;
+}
+
+.center_button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=particles.css.map */
