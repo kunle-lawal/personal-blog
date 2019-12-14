@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "kunle-blog"
+    "default": "kunle-blog",
+    "staging": "kunle-blog"
   }
 }

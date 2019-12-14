@@ -320,6 +320,7 @@ function draw_line(dot, attract_dist) {
 
 var shapes = [];
 function addShape(position_x, position_y, shape, radius, height, width, willPush, willPull) {
+    if ($("#select_shape").val() === 'none') {return 0}
     if(shapes.length > 100) {
         shapes.splice(0, 1);
     } else {
@@ -355,7 +356,7 @@ $("#canvas").mouseup(function () {
     }
 })
 
-function drawrand() {
+function drawDottedSquare() {
     if ($("#btn-add_shape").hasClass("button_clicked") && drawing_shape) {
         let posx = (vPlayer.x < click_point_x) ? click_point_x - vPlayer.x : vPlayer.x - click_point_x;
         let posy = (vPlayer.y < click_point_y) ? click_point_y - vPlayer.y : vPlayer.y - click_point_y;
@@ -577,7 +578,7 @@ function start() {
     update_dots();
     drawVPlayer();
     drawShape();
-    drawrand();
+    drawDottedSquare();
     started = true;
 }
 
