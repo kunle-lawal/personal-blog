@@ -11,14 +11,11 @@ var click_point_y;
 var simulationStarted = false; // check if the simulation has been started
 var positionMousePos = []; //ids of current mouse to input cursor
 var selecting_position = false; //if user is currently selecting a position.
-var clicked_shapes = [];
+var current_shapes = [];
 $("#particleControlContainer").draggable(); //Make the particle variables container moveable
 
 var shapes = []; //drawn shapes.
-var removed_shapes = []; //removed shapes, used to restore deleted shapes.
-// var shape_changes_to_undo = [] //keeps track of all changes made to shapes.
-// var shape_changes_to_redo = [] //keep track of al changes that were undone.
-var copiedShapes = [] //shapes that were copies
+var removed_shapes = []; //removed shapes, used to restore deleted shapes. 
 var drawing_shape = false; //Check if shape is being drawn.
 
 var dots = []; //drawn dots
@@ -40,8 +37,6 @@ var vPlayer = {
     x: 0,
     y: 0,
     r: 2,
-    height: 30,
-    width: 30,
     ang: 0,
     worldx: randNum(-map_w, map_w),
     worldy: randNum(-map_h, map_h),
@@ -148,100 +143,6 @@ function setValToMousePos(id, mousePosx, mousePosy) {
     }
 }
 
-//Copy the shape object and save its state.
-function copyShapes() {
-    copiedShapes = [];
-    let getShapes = [];
-    clicked_shapes.forEach(function (shapeIndex) {
-        getShapes.push(shapes[shapeIndex]);
-    })
-    getShapes.map(function (item) {
-        copiedShapes.push({ ...item });
-    });
-    // console.log(newShape);
-    // newShape[0].x = vPlayer.x;
-    // console.log(shape);
-    // let newShape = shape.map(function(item) {
-    //     copiedShapes.push({...item});
-    // });
-    // console.log(copiedShapes);
-    // console.log(shapes, newShape);
-}
-
-function pasteShapes() {
-    copiedShapes.forEach(function (shape) {
-        shape.x = vPlayer.x - (shape.width / 2);
-        shape.y = vPlayer.y - (shape.height / 2);
-        addShape(shape);
-    })
-}
-
-// function storeChangesToShapes(typeOfChange, shapeIndex, changeMade) {
-//     let change_made = [typeOfChange, shapeIndex, changeMade];
-//     shape_changes_to_undo.push(change_made);
-//     if(typeOfChange === "Shape Removed") {removed_shapes.push(shapes[shapeIndex])}
-// }
-
-//undo changes
-// function undoShapeChange() {
-//     //get last change data
-//     // console.log(shape_changes_to_undo.length)
-//     if(shape_changes_to_undo.length < 1) {return} //if there are no changes to undo exit
-//     let lastChange = {
-//         type: shape_changes_to_undo[shape_changes_to_undo.length - 1][0],
-//         index: shape_changes_to_undo[shape_changes_to_undo.length - 1][1],
-//         change: shape_changes_to_undo[shape_changes_to_undo.length - 1][2]
-//     }
-//     //push last action to redo array so can redo
-//     // console.log(lastChange)
-//     shape_changes_to_redo.push([lastChange.type, lastChange.index, (lastChange.type === "Shape Added" || lastChange.type === "Shape Removed") ? null : shapes[lastChange.index][lastChange.type]]);
-//     shape_changes_to_undo.pop() //remove the last item from the undo array.
-//     // console.log(shape_changes_to_redo, shapes)
-//     //If the last action is no adding shape or removing shapes then we set the previous changes.
-//     if(lastChange.type !== "Shape Added" && lastChange.type !== "Shape Removed") {
-//         shapes[lastChange.index][lastChange.type] = lastChange.change;
-//     } else {
-//         //Add shapes
-//         if(lastChange.type == "Shape Added") {
-//             if(shapes.length > 0) {
-//                 removed_shapes.push(shapes.pop());
-//             }
-//         } else if(lastChange.type == "Shape Removed") {
-//             if(removed_shapes.length > 0) {
-//                 shapes.push(removed_shapes.pop());
-//             }
-//         }
-//     }
-// }
-
-//Redo changes 
-// function redoShapeChange() {
-//     if (shape_changes_to_redo.length < 1) { return } //If there is nothing to redo then exit.
-//     let lastChange = {
-//         type: shape_changes_to_redo[shape_changes_to_redo.length - 1][0],
-//         index: shape_changes_to_redo[shape_changes_to_redo.length - 1][1],
-//         change: shape_changes_to_redo[shape_changes_to_redo.length - 1][2]
-//     }
-//     // console.log(lastChange);
-//     //push last redo action to the undo array
-//     console.log(lastChange);
-//     shape_changes_to_undo.push([lastChange.type, lastChange.index, (lastChange.type === "Shape Added" || lastChange.type === "Shape Removed") ? null : shapes[lastChange.index][lastChange.type]]);
-//     shape_changes_to_redo.pop(); //remove last item from redo array
-//     if (lastChange.type != "Shape Added" && lastChange.type != "Shape Removed") {
-//         shapes[lastChange.index][lastChange.type] = lastChange.change;
-//     } else {
-//         if (lastChange.type === "Shape Added") {
-//             if(removed_shapes.length > 0) {
-//                 shapes.push(removed_shapes.pop());
-//             }
-//         } else if (lastChange.type === "Shape Removed") {
-//             if(shapes.length > 0){
-//                 removed_shapes.push(shapes.pop());
-//             }
-//         }
-//     }
-// }
-
 function unsetValToMouse() {
     positionMousePos.map((id) => {
         $("#" + id).removeClass("mouse_icon_clicked");
@@ -313,7 +214,7 @@ function checkShapeCollision(object) {
         let shape = shapes[i];
         //First check if the current shape is a square.
         if (shape.shape === 'square') {
-            let angle = return_angle(object.vx, object.vy);
+            let angle = return_angle(dot.vx, dot.vy);
 
             var distX = Math.abs(object.x - shape.x - shape.width / 2); // Distance circle is to the square. 
             var distY = Math.abs(object.y - shape.y - shape.height / 2); // Distance circle is to the square.
@@ -342,93 +243,6 @@ function changeShape() {
 
 /////////////////////////////////////////////CLICK AND MOUSE EVENTS////////////////////////////////////////////////////////////////////
 //When any input value is changed makes these checks then restart the simulation
-//Key code events//
-//undo and redo actions
-var ctrlDown = false;
-var ctrlKey = 17, zKey = 90, yKey = 89;
-var shiftDown = false;
-document.body.onkeydown = function (e) {
-    if (e.keyCode == 17 || e.keyCode == 91) {
-        ctrlDown = true;
-    }
-
-    if (e.keyCode == 16) {
-        shiftDown = true;
-    }
-    if ((ctrlDown && e.keyCode == 67)) {
-        copyShapes();
-    }
-    if ((ctrlDown && e.keyCode == 86)) {
-        pasteShapes()
-    }
-    if (e.keyCode == 37) {
-        //left 
-        clicked_shapes.forEach(function (item) {
-            if (ctrlDown) {
-                // storeChangesToShapes('width', item, shapes[item].width);
-                shapes[item].width -= shiftDown ? 10 : 1;
-            } else {
-                // storeChangesToShapes('x', item, shapes[item].x);
-                shapes[item].x -= shiftDown ? 10 : 1;
-            }
-        })
-    }
-    if (e.keyCode == 38) {
-        //top
-        clicked_shapes.forEach(function (item) {
-            if (ctrlDown) {
-                // storeChangesToShapes('height', item, shapes[item].height);
-                shapes[item].height -= shiftDown ? 10 : 1;
-            } else {
-                // storeChangesToShapes('y', item, shapes[item].y);
-                shapes[item].y -= shiftDown ? 10 : 1;
-            }
-        })
-    }
-    if (e.keyCode == 39) {
-        //right
-        clicked_shapes.forEach(function (item) {
-            if (ctrlDown) {
-                // storeChangesToShapes('width', item, shapes[item].width);
-                shapes[item].width += shiftDown ? 10 : 1;
-            } else {
-                // storeChangesToShapes('x', item, shapes[item].x);
-                shapes[item].x += shiftDown ? 10 : 1;
-            }
-        })
-    }
-    if (e.keyCode == 40) {
-        //bottom
-        clicked_shapes.forEach(function (item) {
-            if (ctrlDown) {
-                // storeChangesToShapes('height', item, shapes[item].height);
-                shapes[item].height += shiftDown ? 10 : 1;
-            } else {
-                // storeChangesToShapes('y', item, shapes[item].y);
-                shapes[item].y += shiftDown ? 10 : 1;
-            }
-        })
-    }
-    if (e.keyCode == 46) {
-        clicked_shapes.forEach(function (shapeIndex) {
-            // storeChangesToShapes("Shape Removed", shapeIndex, null);
-            shapes[shapeIndex].highlighted = false;
-            shapes.splice(shapeIndex, 1);
-        })
-        clicked_shapes = [];
-    }
-}
-
-document.body.onkeyup = function (e) {
-    if (e.keyCode == 17 || e.keyCode == 91) {
-        ctrlDown = false;
-    };
-
-    if (e.keyCode == 16) {
-        shiftDown = false;
-    }
-};
-
 $("input").change(function () {
     let max = Number($(this).attr('max'));
     let val = Number($(this).val());
@@ -439,8 +253,6 @@ $("input").change(function () {
     getSimulationVariables();
 })
 
-var mouseMoving = false;
-var timeout;
 document.addEventListener('mousemove', function (evt) {
     var mousePos = getMousePos(canvas, evt);
     vPlayer.x = mousePos.x;
@@ -453,11 +265,39 @@ document.addEventListener('mousemove', function (evt) {
         })
     }
     resetPContainerPosition();
-    mouseMoving = true;
-    clearTimeout(timeout);
-    timeout = setTimeout(function () { mouseMoving = false; }, 200);
 }, false);
 
+//Key code events//
+//undo and redo actions
+var ctrlDown = false;
+var ctrlKey = 17, zKey = 90, yKey = 89;
+
+document.body.onkeydown = function (e) {
+    if (e.keyCode == 17 || e.keyCode == 91) {
+        ctrlDown = true;
+    }
+    if ((ctrlDown && e.keyCode == zKey)) {
+        if (shapes.length > 0) {
+            removed_shapes.push(shapes.pop());
+        }
+    }
+    if ((ctrlDown && e.keyCode == yKey)) {
+        if (removed_shapes.length > 0) {
+            shapes.push(removed_shapes.pop());
+        }
+    }
+    if (e.keyCode == 37) {
+        // shapes[current_shapes].x -= 1;
+        current_shapes.forEach(function (item) {
+            shapes[item].x -= 10;
+        })
+    }
+}
+document.body.onkeyup = function (e) {
+    if (e.keyCode == 17 || e.keyCode == 91) {
+        ctrlDown = false;
+    };
+};
 
 //When mouse icon, which is used to select position, is clicked we keep track of the ones that are clicked.
 $(".mouse_icon").click(function () {
@@ -476,64 +316,21 @@ $(".mouse_icon").click(function () {
 
 $("canvas").click(function () {
     if (selecting_position) { getSimulationVariables(); unsetValToMouse(); }
-    if ($("#btn-click_draw").hasClass("button_clicked") && !checkShapeCollision(vPlayer)[0]) {
+    if (!$("#btn-add_shape").hasClass("button_clicked")) {
         let width = Number($("#shape_width").val());
         let height = Number($("#shape_height").val());
-        addShape({ x: (vPlayer.x - width / 2), y: (vPlayer.y - height / 2), shape: $("#select_shape").val(), radius: Number($("#shape_radius").val()), height, width, willPush: $("#btn-shape_forces_push").hasClass('button_clicked'), willPull: $("#btn-shape_forces_pull").hasClass('button_clicked') })
+        addShape((vPlayer.x - width / 2), (vPlayer.y - height / 2), $("#select_shape").val(), Number($("#shape_radius").val()), height, width, $("#btn-shape_forces_push").hasClass('button_clicked'), $("#btn-shape_forces_pull").hasClass('button_clicked'))
     }
     click_point_x = vPlayer.x;
     click_point_y = vPlayer.y;
 });
-window.setInterval(function () {
-    // console.log(checkShapeCollision(vPlayer)[0], drawing_shape, clicked_shapes);
-}, 100)
 
 $("#canvas").mousedown(function () {
     //if setting is click to add shape then we don't draw the lines. 
-    let playerToShapeCollision = checkShapeCollision(vPlayer);
+    if (!$("#btn-add_shape").hasClass("button_clicked")) { return }
     click_point_x = vPlayer.x;
     click_point_y = vPlayer.y;
-    if (!playerToShapeCollision[0]) {
-        click_point_x = vPlayer.x;
-        click_point_y = vPlayer.y;
-        drawing_shape = true;
-        clicked_shapes.forEach(function (shapeInx) {
-            shapes[shapeInx].highlighted = false;
-        })
-        clicked_shapes = []
-        vPlayer.isColliding = false;
-    } else if (playerToShapeCollision[0] && drawing_shape === false) {
-        //If collision is tru do this
-        vPlayer.isColliding = true;
-        shapeIndex = playerToShapeCollision[1];
-        shape = shapes[shapeIndex];
-        vPlayer.width = shape.width;
-        vPlayer.height = shape.height;
-        console.log(!shapes[shapeIndex].highlighted)
-        if (!clicked_shapes.includes(shapeIndex)) {
-            if (!ctrlDown) {
-                clicked_shapes.forEach(function (shapeIndex) {
-                    shapes[shapeIndex].highlighted = false;
-                })
-                clicked_shapes = [];
-            }
-            clicked_shapes.push(shapeIndex);
-            shape.highlighted = !shape.highlighted;
-        } else {
-            let clicked_shapes_index = clicked_shapes.indexOf(shapeIndex);
-            if (!mouseMoving) {
-                clicked_shapes.forEach(function (shapeIndex) {
-                    shape.highlighted = false;
-                })
-                clicked_shapes = [];
-            }
-            // clicked_shapes.splice(clicked_shapes_index, 1);
-            // shape.highlighted = false;
-        }
-        clicked_shapes.forEach(function (shapeIndex) {
-            shapes[shapeIndex].beingMoved = true;
-        })
-    }
+    drawing_shape = true;
 })
 
 $("#canvas").mouseup(function () {
@@ -545,34 +342,20 @@ $("#canvas").mouseup(function () {
         let x = (vPlayer.x < click_point_x) ? vPlayer.x : click_point_x;
         let y = (vPlayer.y < click_point_y) ? vPlayer.y : click_point_y;
         // console.log(width, height);
-        if (return_distance(click_point_x, click_point_y, vPlayer.x, vPlayer.y) > 10) {
-            if (!$("#btn-drag_draw").hasClass("button_clicked")) { drawing_shape = false; return }
-            addShape({ x, y, shape: 'square', radius: 0, height, width, willPush: false, willPull: false });
-        }
+        addShape(x, y, 'square', 0, height, width, false, false);
         drawing_shape = false;
     }
-
-    clicked_shapes.forEach(function (shapeIndex) {
-        shapes[shapeIndex].x = shapes[shapeIndex].newX;
-        shapes[shapeIndex].y = shapes[shapeIndex].newY;
-        shapes[shapeIndex].beingMoved = false;
-    })
 })
 
 //Toggle and and or button.
 $(".and_or").click(function () {
     $(this).toggleClass('and');
     $(this).html($(this).hasClass('and') ? 'and' : 'or');
-    getSimulationVariables();
 })
 
 //Delete all shapes
 $("#btn-delete_all").click(function () {
     shapes = [];
-    removed_shapes = [];
-    shape_changes_to_undo = [];
-    shape_changes_to_redo = [];
-    clicked_shapes = [];
 })
 
 $(".toggle_button").click(function () {
@@ -615,44 +398,9 @@ function draw_line(dot, attract_dist) {
     }
 }
 
-function draw_line_to(fromObject, { x: toObjectX, y: toObjectY, width: toObjectW, height: toObjectH }, type) {
-    if (!$("#btn-show_lines").hasClass("button_clicked")) { return false; }
-    if (type == "square to square") {
-        let line_color = "white";
-        for (let i = 0; i < fromObject.length; i++) {
-            let square = (fromObject[i].shape == "square") ? fromObject[i] : [];
-            let squareCenter = {
-                x: (square.x + (square.width / 2)),
-                y: (square.y + (square.height / 2))
-            }
-            //distance from middle of shape to middle of other shape
-            let dis = return_distance((toObjectX + (toObjectW / 2)), (toObjectY + (toObjectH / 2)), squareCenter.x, squareCenter.y);
-            let maxDis = Math.sqrt((square.width / 2 * square.width / 2) + (square.width / 2 * square.width / 2));
-            if (dis <= maxDis + 150) {
-                if ((squareCenter.x <= toObjectX + 5 && squareCenter.x >= toObjectX - 5)) {
-                    ctx.setLineDash([0, 0])
-                    vPlayer.x = squareCenter.x;
-                } else if ((squareCenter.y <= toObjectY + 5 && squareCenter.y >= toObjectY - 5)) {
-                    ctx.setLineDash([0, 0])
-                    vPlayer.y = squareCenter.y;
-                } else {
-                    ctx.setLineDash([10, 10])
-                }
-                //Draw line between dots
-                ctx.beginPath();
-                ctx.moveTo(squareCenter.x, squareCenter.y);
-                ctx.strokeStyle = "red";
-                ctx.lineTo(toObjectX, toObjectY);
-                ctx.lineWidth = 1;
-                ctx.stroke();
-            }
-        }
-    }
-}
-
 //Draw a dotted square based on the players position and where the player first clicked (click_points);
 function drawDottedSquare() {
-    if (drawing_shape) {
+    if ($("#btn-add_shape").hasClass("button_clicked") && drawing_shape) {
         let posx = (vPlayer.x < click_point_x) ? click_point_x - vPlayer.x : vPlayer.x - click_point_x;
         let posy = (vPlayer.y < click_point_y) ? click_point_y - vPlayer.y : vPlayer.y - click_point_y;
 
@@ -673,28 +421,12 @@ function drawDottedSquare() {
 function drawShape() {
     if (shapes.length < 1) { return 0 }
     for (let i = 0; i < shapes.length; i++) {
-        let shape = shapes[i];
+        let shapes_ = shapes[i];
         ctx.beginPath();
-        if (shape.shape === 'circle') {
-            ctx.arc(shape.x, shape.y, shape.r, 0, (2 * Math.PI));
+        if (shapes_.shape === 'circle') {
+            ctx.arc(shapes_.x, shapes_.y, shapes_.r, 0, (2 * Math.PI));
         } else {
-            let dist_to_clickPoint = (click_point, vPlayer_pos) => { return click_point - vPlayer_pos };
-            let newShapeX = (dist_to_clickPoint(click_point_x, vPlayer.x) < 0) ? shape.x + Math.abs(dist_to_clickPoint(click_point_x, vPlayer.x)) : shape.x - Math.abs(dist_to_clickPoint(click_point_x, vPlayer.x));
-            let newShapeY = (dist_to_clickPoint(click_point_y, vPlayer.y) < 0) ? shape.y + Math.abs(dist_to_clickPoint(click_point_y, vPlayer.y)) : shape.y - Math.abs(dist_to_clickPoint(click_point_y, vPlayer.y));
-            shape.newX = shape.beingMoved ? newShapeX /* (vPlayer.x - (shape.width / 2)) */ : shape.newX;
-            shape.newY = shape.beingMoved ? newShapeY /* (vPlayer.y - (shape.height / 2)) */ : shape.newY;
-            ctx.rect(shape.beingMoved ? newShapeX : shape.x, shape.beingMoved ? newShapeY : shape.y, shape.width, shape.height);
-            if (shape.highlighted && !shape.beingMoved) {
-                ctx.setLineDash([0, 0])
-                ctx.strokeStyle = "#fb2f2f";
-                // ctx.lineTo(shape.x, shape.width);
-                // ctx.setLineDash([5, 5])
-                ctx.lineWidth = 10;
-                ctx.stroke();
-                // ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
-            } else {
-                ctx.setLineDash([0, 0])
-            }
+            ctx.rect(shapes_.x, shapes_.y, shapes_.width, shapes_.height);
         }
         ctx.fillStyle = 'white';
         ctx.fill();
@@ -707,15 +439,7 @@ function drawVPlayer() {
     if ($("#btn-pointer_visible").hasClass('button_clicked')) {
         let size = $("#pointer_size").val();
         ctx.beginPath();
-        let shape = $("#select_shape").val();
-        let r = $("#shape_radius").val();
-        let width = vPlayer.isColliding ? vPlayer.width : $("#shape_width").val();
-        let height = vPlayer.isColliding ? vPlayer.height : $("#shape_height").val();
-        if (shape === 'circle') {
-            ctx.arc(vPlayer.x, vPlayer.y, r + 1, 0, (2 * Math.PI));
-        } else {
-            ctx.rect(vPlayer.x - (width / 2), vPlayer.y - (height / 2), width, height);
-        }
+        ctx.arc(vPlayer.x, vPlayer.y, vPlayer.r + 1, 0, (2 * Math.PI));
         ctx.fillStyle = 'white';
         ctx.font = size + 'px serif';
         ctx.fillText("(" + Math.round(vPlayer.x) + ' , ' + Math.round(vPlayer.y) + ")", vPlayer.x, vPlayer.y - 20);
@@ -788,33 +512,27 @@ function update_dots() {
             if (randNum(1, 1000) < 100) {
                 dot.x = dot.ogX;
                 dot.y = dot.ogY;
-                dot.vx = dot.ogvx;
-                dot.vy = dot.ogvy;
             }
         }
     }
 }
 
 //Add a shape to the shapes array
-function addShape({ x, y, shape, radius, height, width, willPush, willPull }) {
+function addShape(position_x, position_y, shape, radius, height, width, willPush, willPull) {
     if ($("#select_shape").val() === 'none') { return 0 }
     if (shapes.length > 100) {
         shapes.splice(0, 1);
     } else {
         shapes.push({
-            x: x,
-            y: y,
+            x: position_x,
+            y: position_y,
             shape: shape,
             r: (shape === "circle") ? radius : 0,
             height: (shape === 'square') ? height : 0,
             width: (shape === 'square') ? width : 0,
             willPull: willPush ? false : willPull,
-            willPush: willPull ? false : willPush,
-            highlighted: false,
-            beingMoved: false,
-            index: shapes.length
+            willPush: willPull ? false : willPush
         })
-        // storeChangesToShapes('Shape Added', shapes.length - 1, null);
     }
 }
 
@@ -901,16 +619,9 @@ function start() {
     ctx.clearRect(0, 0, map_w, map_h);
     draw_dots();
     update_dots();
+    drawVPlayer();
     drawShape();
     drawDottedSquare();
-    drawVPlayer();
-    draw_line_to(shapes, { ...vPlayer }, "square to square")
-    // draw_line_to(shapes, (clicked_shapes.length === 1 ? {
-    //     x: (shapes[clicked_shapes[0]].newX + (shapes[clicked_shapes[0]].width / 2)),
-    //     y: (shapes[clicked_shapes[0]].newY + (shapes[clicked_shapes[0]].height / 2)),
-    //     width: shapes[clicked_shapes[0]].width,
-    //     height: shapes[clicked_shapes[0]].height
-    // } : { ...vPlayer} ), "square to square")
     simulationStarted = true;
 }
 
