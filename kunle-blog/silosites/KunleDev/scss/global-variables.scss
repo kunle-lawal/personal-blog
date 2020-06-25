@@ -5,11 +5,16 @@
 @import url('https://fonts.googleapis.com/css?family=Darker+Grotesque:400,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
 
+@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+
 /*FONTS*/
 $quicksand: 'Quicksand', sans-serif;
 $lato: 'Lato', sans-serif;
 $open: 'Open Sans', sans-serif;
 $grate: 'Darker Grotesque', sans-serif;
+$anton: 'Anton', sans-serif;
+$right: 'Righteous', cursive;
 
 @mixin test-borders($color) {
     // border: 1px solid $color;

@@ -237,22 +237,154 @@ strong {
   text-align: center;
   position: relative;
 }
+@keyframes hover {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes hoverShadow {
+  0% {
+    box-shadow: 0 20px 20px #686868;
+    height: 10px;
+    width: 10px;
+  }
+  50% {
+    box-shadow: 0 1px 5px #494949;
+    height: 5px;
+    width: 5px;
+  }
+  100% {
+    box-shadow: 0 20px 20px #686868;
+    height: 10px;
+    width: 10px;
+  }
+}
+.main_page .social_icons {
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main_page .social_icons .icon {
+  margin: 0 5px;
+  color: #222;
+  border-radius: 100px;
+  padding: 10px;
+  color: white;
+  position: relative;
+  top: 100px;
+  transition: transform 0.5s;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .social_icons .icon {
+    z-index: 999;
+    top: -100px;
+  }
+}
+.main_page .social_icons .icon:hover {
+  transform: translateY(-5px);
+}
+.main_page .social_icons .fa-twitter {
+  background-color: #00aced;
+}
+.main_page .social_icons .fa-linkedin {
+  background-color: #0e76a8;
+}
+.main_page .social_icons .fa-github {
+  background-color: #222;
+}
+.main_page .social_icons .fa-meteor {
+  background-color: #222;
+  color: white;
+  animation: hover 1.6s infinite;
+}
+.main_page .social_icons .fa-meteor::after {
+  content: "";
+  height: 10px;
+  width: 10px;
+  box-shadow: 0 20px 10px #686868;
+  border-radius: 100px;
+  padding: 10px;
+  position: absolute;
+  margin: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ff1a1a00;
+  z-index: -1;
+  animation: hoverShadow 1.6s infinite;
+}
+@media screen and (min-width: 1259px) and (max-width: 1440px) {
+  .main_page .social_icons .fa-meteor:hover {
+    animation-play-state: paused;
+  }
+  .main_page .social_icons .fa-meteor:hover::after {
+    animation-play-state: paused;
+  }
+}
+@media screen and (min-width: 1441px) {
+  .main_page .social_icons .fa-meteor:hover {
+    animation-play-state: paused;
+  }
+  .main_page .social_icons .fa-meteor:hover::after {
+    animation-play-state: paused;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .main_page .social_icons .fa-meteor {
+    display: none;
+  }
+}
+.main_page .social_icons .fa-envelope {
+  background-color: #222;
+  color: #fff;
+}
 .main_page .page {
   position: absolute;
-  top: 30px;
-  bottom: 30px;
-  left: 30px;
-  right: 30px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   margin: auto;
   background-color: #efefef;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .page {
+    position: fixed;
+  }
 }
 .main_page .page section {
   position: relative;
 }
-.main_page .page section .divide {
-  width: 50%;
+.main_page .page section .divide_left {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  z-index: 0;
+  transition-delay: z-index 5s;
+  background-image: url("../images/img.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .page section .divide_left {
+    background-position: top;
+  }
+}
+.main_page .page section .divide_right {
+  width: 0%;
   height: 100%;
   background-color: #f75b46;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .main_page .page section header {
   position: absolute;
@@ -261,45 +393,106 @@ strong {
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: right;
+  z-index: 9999;
 }
 .main_page .page section header h1 {
-  margin: 100px 0;
+  margin: initial;
   text-align: right;
   font-size: 12rem;
+  line-height: 10rem;
   font-family: "Righteous", cursive;
   font-weight: 900;
   color: #222;
   position: relative;
+  transition: all;
+  opacity: 0;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .page section header h1 {
+    font-size: 4rem;
+    line-height: 3.5rem;
+    margin: initial;
+  }
+}
+@media only screen and (min-width: 701px) and (max-width: 1257px) {
+  .main_page .page section header h1 {
+    font-size: 6rem;
+    line-height: 5rem;
+    margin: initial;
+  }
+}
+.main_page .page section header .kunle {
+  top: -100px;
+  position: relative;
+  color: white;
+  text-shadow: 1px 5px #222;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .page section header .kunle {
+    text-shadow: initial;
+  }
+}
+.main_page .page section header .dev {
+  bottom: -100px;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .page section header .dev {
+    text-shadow: initial;
+  }
 }
 .main_page .page section header .dot {
-  margin: 30px 0;
   text-align: right;
-  height: 65px;
-  width: 65px;
   background-color: #222;
   display: inline-block;
   border-radius: 100px;
-  border: 10px solid #efefef;
   position: absolute;
+  bottom: 300px;
+  opacity: 0;
+  width: 5vw;
+  height: 5vw;
+  max-width: 40px;
+  max-height: 40px;
 }
-
-.path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  -webkit-animation: dash 1s linear alternate forwards;
+.main_page .faAnimationDone {
+  top: 0px !important;
 }
-
-svg {
-  color: red;
-}
-
-@-webkit-keyframes dash {
-  from {
-    stroke-dashoffset: 1000;
-  }
-  to {
-    stroke-dashoffset: 0;
+@media only screen and (max-width: 700px) {
+  .main_page .faAnimationDone {
+    z-index: 9999;
+    top: 20px !important;
   }
 }
+@media only screen and (max-width: 700px) {
+  .main_page .pageAnimationDone {
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+.main_page .pageAnimationDone section .divideAnimationDone {
+  width: 50%;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .pageAnimationDone section .divideAnimationDone {
+    width: 100%;
+  }
+}
+.main_page .pageAnimationDone section header .h1AnimationDone {
+  top: 0;
+  bottom: 0;
+  opacity: 1;
+}
+@media only screen and (max-width: 700px) {
+  .main_page .pageAnimationDone section header .h1AnimationDone {
+    font-size: 4rem;
+    line-height: 3.4rem;
+    margin: initial;
+  }
+}
+.main_page .pageAnimationDone section header .dotAnimationDone {
+  bottom: 0px;
+  opacity: 1;
+}
 
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=main.css.map */
