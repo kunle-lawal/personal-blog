@@ -432,8 +432,7 @@ strong {
 .main_page .page .intro header .kunle {
   top: -100px;
   position: relative;
-  color: white;
-  text-shadow: 1px 5px #222;
+  color: #222;
 }
 @media only screen and (max-width: 700px) {
   .main_page .page .intro header .kunle {

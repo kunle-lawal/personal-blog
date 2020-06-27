@@ -21,7 +21,7 @@ tl.add({
 
 tl.add({
     targets: '.divide',
-    easing: 'easeInOutBack',
+    easing: 'spring',
     width: (getPageWidth() > 600) ? '50%' : "0%",
     delay: 1000
 })
@@ -61,17 +61,17 @@ tl.add({
     delay: anime.stagger(250),
     complete: function(anim) {
         tl.pause();
-        $('.page').addClass('pageAnimationDone');
-        $('.divide').addClass('divideAnimationDone');
-        $('.animateDown').addClass('h1AnimationDone');
-        $('.dot').addClass('dotAnimationDone');
-        $('.icon').addClass('faAnimationDone');
-        removeStyling('page');
-        removeStyling('divide_left');
-        removeStyling('divide_right');
-        removeStyling('kunle');
-        removeStyling('dev');
-        removeStyling('dot');
+        // $('.page').addClass('pageAnimationDone');
+        // $('.divide').addClass('divideAnimationDone');
+        // $('.animateDown').addClass('h1AnimationDone');
+        // $('.dot').addClass('dotAnimationDone');
+        // $('.icon').addClass('faAnimationDone');
+        // removeStyling('page');
+        // removeStyling('divide_left');
+        // removeStyling('divide_right');
+        // removeStyling('kunle');
+        // removeStyling('dev');
+        // removeStyling('dot');
     }
 }, '-=1000')
 

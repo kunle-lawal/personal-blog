@@ -240,8 +240,8 @@
                 .kunle {
                     top: -100px;
                     position: relative;
-                    color: white;
-                    text-shadow: 1px 5px #222;
+                    color: #222;
+                    // text-shadow: 1px 5px #222;
 
                     @include screen-size(small) {
                         text-shadow: initial;
